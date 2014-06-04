@@ -1,6 +1,8 @@
 dist
 node_modules/
 config/config.js
+config/config
 webapp/scripts/vendor
 .tmp
 .sass-cache
+.DS_Store

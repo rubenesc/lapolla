@@ -1,1 +1,6 @@
+dist
 node_modules/
+config/config.js
+webapp/scripts/vendor
+.tmp
+.sass-cache

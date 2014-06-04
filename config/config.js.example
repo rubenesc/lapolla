@@ -1,0 +1,47 @@
+
+var config =  {
+
+    development: {
+
+      root: require('path').normalize(__dirname + '/..'),
+
+      app: {
+        name: 'La Polla: Development'
+      },
+
+      db: 'mongodb://localhost/lapolla_dev',
+      
+      sessionSecret: 'this_is_a_secret_key'
+
+    }, 
+
+    test: {
+
+      root: require('path').normalize(__dirname + '/..'),
+      
+      app: {
+        name: 'La Polla: Testing'
+      },
+
+      db: 'mongodb://localhost/lapolla_test',
+
+      sessionSecret: 'this_is_a_secret_key'      
+    }, 
+
+    production: {
+
+      root: require('path').normalize(__dirname + '/..'),
+
+      app: {
+        name: 'La Polla'
+      },
+
+      db: 'mongodb://localhost/lapolla_test',
+      
+      sessionSecret: 'this_is_a_secret_key'
+      
+    }
+}
+
+module.exports = config;
+

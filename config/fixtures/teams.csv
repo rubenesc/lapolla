@@ -1,0 +1,33 @@
+code, name, group, continent, flag
+alg,Algeria,h,africa,http://img.fifa.com/images/flags/3/alg.png
+cmr,Cameroon,a,africa,http://img.fifa.com/images/flags/3/cmr.png
+civ,Ivory Cost,c,africa,http://img.fifa.com/images/flags/3/civ.png
+gha,Ghana,g,africa,http://img.fifa.com/images/flags/3/gha.png
+nga,Nigeria,f,africa,http://img.fifa.com/images/flags/3/nga.png
+aus,Australia,b,oceania,http://img.fifa.com/images/flags/3/aus.png
+irn,Iran,f,asia,http://img.fifa.com/images/flags/3/irn.png
+jpn,Japan,c,asia,http://img.fifa.com/images/flags/3/jpn.png
+kor,Korea Republic,h,asia,http://img.fifa.com/images/flags/3/kor.png
+bel,Belgium,h,europe,http://img.fifa.com/images/flags/3/bel.png
+bih,Bosnia and Herzegovina,f,europe,http://img.fifa.com/images/flags/3/bih.png
+cro,Croatia,a,europe,http://img.fifa.com/images/flags/3/cro.png
+eng,England,d,europe,http://img.fifa.com/images/flags/3/eng.png
+fra,France,e,europe,http://img.fifa.com/images/flags/3/fra.png
+ger,Germany,g,europe,http://img.fifa.com/images/flags/3/ger.png
+gre,Greece,c,europe,http://img.fifa.com/images/flags/3/gre.png
+ita,Italy,d,europe,http://img.fifa.com/images/flags/3/ita.png
+ned,Netherlands,b,europe,http://img.fifa.com/images/flags/3/ned.png
+por,Portugal,g,europe,http://img.fifa.com/images/flags/3/por.png
+rus,Russia,h,europe,http://img.fifa.com/images/flags/3/rus.png
+esp,Spain,b,europe,http://img.fifa.com/images/flags/3/esp.png
+sui,Switzerland,e,europe,http://img.fifa.com/images/flags/3/sui.png
+crc,Costa Rica,d,north america,http://img.fifa.com/images/flags/3/crc.png
+hon,Honduras,e,north america,http://img.fifa.com/images/flags/3/hon.png
+mex,Mexico,a,north america,http://img.fifa.com/images/flags/3/mex.png
+usa,USA,g,north america,http://img.fifa.com/images/flags/3/usa.png
+arg,Argentina,f,south america,http://img.fifa.com/images/flags/3/arg.png
+bra,Brazil,a,south america,http://img.fifa.com/images/flags/3/bra.png
+chi,Chile,b,south america,http://img.fifa.com/images/flags/3/chi.png
+col,Colombia,c,south america,http://img.fifa.com/images/flags/3/col.png
+ecu,Ecuador,e,south america,http://img.fifa.com/images/flags/3/ecu.png
+uru,Uruguay,d,south america,http://img.fifa.com/images/flags/3/uru.png

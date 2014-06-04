@@ -1,15 +1,53 @@
 {
   "name": "la-polla",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.1-2",
+  "private": false,
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=production node app",
+    "test": "NODE_ENV=test ./bin/test",
+    "devserver": "NODE_ENV=development ./node_modules/node-dev/node-dev --debug app.js"
+  },
+  "dependencies": {
+    "express": "3.0.5",
+    "coffee-script": "~1.4.0",
+    "mongoose": "latest",
+    "connect-mongo": "latest",
+    "connect-flash": "latest",
+    "underscore": "~1.4.3",
+    "express-namespace": "~0.1.1",
+    "connect-assets": "~2.3.3",
+    "socket.io": "~0.9.13",
+    "validator": "~0.4.19",
+    "express-validator": "~0.3.0",
+    "async": "~0.1.22",
+    "gzippo": "~0.2.0",
+    "prettyjson": "~0.7.1",
+    "passport": "~0.1.16",
+    "passport-local": "~0.1.6",
+    "passport-facebook": "latest",
+    "passport-twitter": "latest",
+    "passport-github": "latest",
+    "passport-google-oauth": "latest",
+    "knox": "~0.8.3",
+    "gm": "~1.10.0",
+    "oauth2orize": "~0.1.0",
+    "passport-http-bearer": "~1.0.1",
+    "passport-oauth2-client-password": "~0.1.1"
+  },
+  "devDependencies": {
+    "node-dev": "~0.2.9",
+    "mocha": "~1.7.4",
+    "request": "~2.12.0",
+    "libxmljs": "~0.6.1",
+    "should": "~1.2.1",
+    "form-data": "~0.1.0"
   },
   "author": "",
+  "subdomain": "lapolla",
   "license": "BSD",
-  "dependencies": {
-    "express": "~3.8.0"
+  "engines": {
+    "node": "0.10.x"
   }
 }

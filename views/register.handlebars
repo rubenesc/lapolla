@@ -1,0 +1,129 @@
+
+
+<body class="register-container">
+	<div  id="register-box">
+		<div class="toggle">
+			<a href="/login" class="login-lnk">Login</a>
+		</div>
+{{!--   - var flashTypes = ['info', 'error']
+  each flashType in flashTypes
+    if message[flashType]
+      p.flash(class=flashType)
+        = message[flashType]
+
+ --}}
+
+		<ul class="nav-panel">
+	        {{#each message}}
+	            <li>{{this}}</li>
+	        {{/each}}
+		</ul>
+
+		<div id="register-form" >
+			<form class="form-horizontal" role="form" action="/signup" method="post">
+			  
+			  <div class="form-group">
+			    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-10">
+			      <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Username">
+			    </div>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+			    <div class="col-sm-10">
+			      <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+			    <div class="col-sm-10">
+			      <input type="password" name="password2" class="form-control" id="inputPassword2" placeholder="Password">
+			    </div>
+			  </div>
+
+
+			  <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button id="register-btn" class="btn btn-default">Register</button>
+			    </div>
+			  </div>
+
+			</form>
+		</div>
+
+
+	<div>
+
+
+
+<script>
+	var RegForm = { 
+		
+	    setupActions: function(){
+
+	        $('#register-form').on('click', '#register-btn', function(e){
+	            //e.preventDefault();
+
+	            var error = false;
+          		document.getElementById("inputEmail").style.borderColor = "";
+          		document.getElementById("inputUsername").style.borderColor = "";
+          		document.getElementById("inputPassword").style.borderColor = "";
+          		document.getElementById("inputPassword2").style.borderColor = "";
+
+
+				var email = document.getElementById("inputEmail").value;	            
+	          	if (!email){
+	          		document.getElementById("inputEmail").style.borderColor = "#E34234";
+		            error = true;
+	          	}
+
+				var username = document.getElementById("inputUsername").value;	            
+	          	if (!username){
+	          		document.getElementById("inputUsername").style.borderColor = "#E34234";
+		            error = true;
+	          	}
+
+				var pass1 = document.getElementById("inputPassword").value;
+				var pass2 = document.getElementById("inputPassword2").value;
+
+
+	          	if (!pass1){
+	          		document.getElementById("inputPassword").style.borderColor = "#E34234";
+		            error = true;
+	          	}
+
+	          	if (!pass2){
+	          		document.getElementById("inputPassword2").style.borderColor = "#E34234";
+		            error = true;
+	          	}
+
+		        if (pass1 != pass2) {
+		            document.getElementById("inputPassword").style.borderColor = "#E34234";
+		            document.getElementById("inputPassword2").style.borderColor = "#E34234";
+		            error = true;
+		        }
+
+		        if (error){
+		        	return;
+		        }
+
+
+	              $("#register-form").submit();
+	        }); 
+
+		}		
+	}
+
+	$(function () {
+	    RegForm.setupActions();
+	});
+
+</script>	
+</body>

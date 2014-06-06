@@ -161,36 +161,55 @@ color: #faac16;
 }
 
 #register-box {
-    width: 40%;
-
-    
-    background-color: #ffffff;
-    /*opacity: 0.5;*/
+    width: 32%;
+     background-color: #ffffff;
     position: relative;
-    margin-top: 200px;
+    margin-top: 150px;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 3px;
+    border-radius: 6px 40px 4px 6px;
+     opacity: 0.93;
+}
 
-   
+#register-box-opacity {
 
 }
 
-.register-form{
+.register-form {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding: 40px;
-    
+    padding: 30px;
+
+}
+
+.register-form  p {
+    font-size: 20px;
+    font-family: 'Abel', sans-serif;
+    color: #555555;
+
 }
 
 .toggle {
-    background-color: #39E09B;
+    background-color: #faac16;
     width: 100%;
-    height: 50px;
+    height: 70px;
+    font-family: 'Abel', sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+    padding: 5px 10px;
+     border-radius: 0px 40px;
+}
+
+.toggle h2 {
+    margin-left: 20px;
+    font-weight: 700px;
 
 }
 
+.toggle a {
+   color: #ffffff;
+   }
 
 /*Team nav-panel*/
 
@@ -201,29 +220,35 @@ color: #faac16;
     padding: 0px;
     width: 100%;
     font-family: 'Abel', sans-serif;
+
 }
     
-}
+
 
 .nav-panel img {
     margin-right: 7px;
     margin-left: 7px;
     height: 21px;
     width: 30px;
+
+
 }
 
 .nav-panel li {
-    margin: 15px 4px;
+   margin: 15px 10px;
     
-    list-style: none;  
+    list-style: none; 
+
+    
 }
 
 .nav-panel p {
     margin: 0px 4px;
 
+
 }
     
-    
+
 
 
 label {
@@ -250,16 +275,61 @@ label {
     font-weight: 700;
 }
 
-.panel-body input {
-    margin-left: auto;
-    margin-left: auto;
-}
 
-.panel-input {
-    margin-left: auto;
-    margin-right: auto;
+
+/*----------Rows inside panels--------------*/
+
+.panel-name {
+    width: 30%;
+    /*background-color:blue;*/
     float: left;
 }
+
+.panel-name label {
+    font-family: 'Abel', sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+}
+
+.panel-img {
+    width: 10%;
+    /*background-color: yellow;*/
+    float: left;
+}
+
+.panel-input{
+    width: 10%;
+    /*background-color: green;*/
+    float: left;
+
+}
+
+
+.panel-img img {
+    margin: 8px 3px 8px 3px;
+    width: 20px;
+    
+}
+
+
+.panel-input input{
+    
+    
+    padding: 0px;
+    width: 26px;
+    height: 26px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+   
+
+}
+
+.login-lnk, .register-lnk {
+    font-size: 18px;
+}
+
 
 
 

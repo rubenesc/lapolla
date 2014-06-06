@@ -44,8 +44,7 @@ module.exports = function(app, config, passport) {
                 return options.fn(this);
               }
               return options.inverse(this);
-            }
-        }
+            }        }
     });
 
 

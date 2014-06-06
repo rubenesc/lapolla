@@ -166,27 +166,43 @@ exports.update = function(req, res, next) {
 				pen2 = req.body["p_"+matchId2+"_2"];
 				codeTeam1 = req.body["team_"+matchId2+"_code_1"];
 				codeTeam2 = req.body["team_"+matchId2+"_code_2"];
+
+				//if no teams assigned, reset scores
+				if (!codeTeam1){
+					gol1 = 0;
+					pen1 = 0;
+				}
+
+				if (!codeTeam2){
+					gol2 = 0;
+					pen2 = 0;
+				}
+
+				if (matchId2 == 57){
+					// console.log("["+matchId2+"z]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]");
+				}
+
 			} else { 
 				codeTeam1 = data.team1.code;
 				codeTeam2 = data.team2.code;
 			}
 
-			data.gol1 = gol1 || data.gol1;
-			data.gol2 = gol2 || data.gol2;
-			data.pen1 = pen1 || data.pen1;
-			data.pen2 = pen2 || data.pen2;
+			data.gol1 = (isNaN(gol1)) ? data.gol1 : gol1;
+			data.gol2 = (isNaN(gol2)) ? data.gol2 : gol2;
+			data.pen1 = (isNaN(pen1)) ? data.pen1 : pen1;
+			data.pen2 = (isNaN(pen2)) ? data.pen2 : pen2;
 
 			if (matchId2 == 57){
-			//	console.log("["+matchId2+"a]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]");
+				// console.log("["+matchId2+"a]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]-["+data.gol1 +"]["+ data.gol2+"]");
 			}
  
 			GameFactory.addTeamsToGame(data, codeTeam1, codeTeam2, function(err, game){
 
-					console.log(err);
+				// console.log(err);
 				if (err) return next(err);
 
 				if (matchId2 == 57){
-					//console.log("["+game.matchId+"b]["+game.team1+"]["+game.team2+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
+					// console.log("["+game.matchId+"b]["+game.team1+"]["+game.team2+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
 					// console.log("["+game.matchId+"b]["+game.team1.code+"]["+game.team2.code+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
 				}
 
@@ -200,15 +216,11 @@ exports.update = function(req, res, next) {
 				updateAndSaveGameScore(req, game, gol1, gol2, pen1, pen2, function(err, _data){
 					counter ++;
 
-					console.log(err);
-			    	if (err) return next(err);	
-
-					if (matchId2 == 57){
-						// console.log("["+game.matchId+"c]["+game.team1+"]["+game.team2+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
-					 //console.log("["+matchId2+"b]["+matchId2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]");
-						//	console.log("["+_data.matchId+"b]["+_data.team1.code+"]["+_data.team2.code+"]["+_data.gol1+"]["+_data.gol2+"]["+_data.pen1+"]["+_data.pen2+"]");
+					if (err){
+						console.log("fuck error saving score");
+						console.log(err);
 					}
-
+			    	if (err) return next(err);	
 
 			    	if (counter === numberOfMatches){
 						return res.redirect("/games/"+req.user.username);
@@ -315,10 +327,10 @@ function updateAndSaveGame(req, data, cb){
 
 function updateAndSaveGameScore(req, data, gol1, gol2, pen1, pen2, cb){
 
-	data.gol1 = gol1 || data.gol1;
-	data.gol2 = gol2 || data.gol2;
-	data.pen1 = pen1 || data.pen1;
-	data.pen2 = pen2 || data.pen2;
+	data.gol1 = (isNaN(gol1)) ? data.gol1 : gol1;
+	data.gol2 = (isNaN(gol2)) ? data.gol2 : gol2;
+	data.pen1 = (isNaN(pen1)) ? data.pen1 : pen1;
+	data.pen2 = (isNaN(pen2)) ? data.pen2 : pen2;	
 
 	data.save(function(err, _data) {
 

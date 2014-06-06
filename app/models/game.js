@@ -33,6 +33,13 @@ GameSchema.method('toClient', function() {
 		delete obj.user._id;
 	}
 
+	// if (obj.team1){
+	// 	obj.team1.flag = "/img/flag.png";
+	// }
+	// if (obj.team2){
+	// 	obj.team2.flag = "/img/flag.png";
+	// }
+
     return obj;
 });
 

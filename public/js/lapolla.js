@@ -115,6 +115,16 @@
                 pen2: docContext.find("input[name='p_"+matchId+"_2']").val()
             }
 
+            if (isNaN(game.gol1)){
+                game.gol1 = 0;
+                docContext.find("input[name='g_"+matchId+"_1']").val(0);
+            }
+
+            if (isNaN(game.gol2)){
+                game.gol2 = 0;
+                docContext.find("input[name='g_"+matchId+"_2']").val(0);
+            }            
+
             return game;
         },
 
@@ -166,9 +176,13 @@
         sortTeams: function(){
 
             for (var j in this.groups){
+
                 var group = this.groups[j];
-                var groupHashMap = {};
-                var gamesArr = [];
+                var groupHashMap = {}; //contains a hash with the 4 teams of the group and its info.
+                var gamesArr = []; //contains the info of every game of the group
+
+                var hmA = {};
+
                 //console.log("group: " + group);
                 $("#group-"+group+" li").each(function(i){
 
@@ -191,12 +205,14 @@
                         auxTeam = {"team": game.code2, "name": game.name2, "flag": game.flag2, "p": 0, "gf":0, "ga":0, "gd": 0};
                         groupHashMap[game.code2] = auxTeam;
                     }
-
                 }
 
                 //populate groupHashMap
                 //calculate points and assign
+                var currentMatchTeam1Points = 0;
+                var currentMatchTeam2Points = 0;
                 for(var i in gamesArr){
+
                     game = gamesArr[i];
 
                     team1 = groupHashMap[game.code1];
@@ -211,21 +227,31 @@
 
                     if (game.gol1 === game.gol2){
 
-                        team1.p = team1.p + 1;
-                        team2.p = team2.p + 1;
+                        currentMatchTeam1Points = 1;
+                        currentMatchTeam2Points = 1;
+
                     } else if (game.gol1 > game.gol2) {
 
-                        team1.p = team1.p + 3;
-                        team2.p = team2.p + 0;
+                        currentMatchTeam1Points = 3;
+                        currentMatchTeam2Points = 0;
+
                     } else {
 
-                        team1.p = team1.p + 0;
-                        team2.p = team2.p + 3;
-
+                        currentMatchTeam1Points = 0;
+                        currentMatchTeam2Points = 3;
                     }
+
+                    team1.p = team1.p + currentMatchTeam1Points;
+                    team2.p = team2.p + currentMatchTeam2Points;
 
                     groupHashMap[game.code1] = team1;
                     groupHashMap[game.code2] = team2;
+
+                    var hmb = {};
+                    hmb[game.code1] = currentMatchTeam1Points;
+                    hmb[game.code2] = currentMatchTeam2Points;
+                    hmA[game.code1+"-"+game.code2] = hmb;
+                    hmA[game.code2+"-"+game.code1] = hmb;
 
                 }
 
@@ -236,11 +262,49 @@
 
 
                 groupRanking.sort(function(a,b){
-                  return b.p - a.p;
+
+                    var result = b.p - a.p;
+
+                    if (result === 0){
+                        result = b.gd - a.gd;
+                    } else {
+                        return result;
+                    }
+
+                    if (result === 0){
+                        result = b.gf - a.gf;
+                    } else {
+                        return result;
+                    }
+
+                    if (result === 0){
+
+                        var hmb2 = hmA[b.team+"-"+a.team];
+                        if (!hmb2){
+                            hmb2 = hmA[a.team+"-"+b.team];
+                        }
+
+                        if (hmb2){
+                            result = hmb2[b.team] - hmb2[a.team];
+                            if (result !== 0){
+                                return result;
+                            }
+                        }
+
+                    } 
+
+                    return b.p - a.p;
                 });
 
                 this.groupRankingHash[group] = groupRanking;
 
+                if (group === "a"){
+                    console.log("");
+                    console.log("group: "+ group);
+                    groupRanking.forEach(function(entry){
+                        console.log("["+entry.team+"]["+entry.flag+"]["+entry.p+"]["+entry.gf+"]["+entry.ga+"]["+entry.gd+"]");
+                    });
+                }
             }
 
             GamesForm.processGroupWinners();
@@ -285,7 +349,7 @@
                     team2Dom.find(".team2-flag").attr("src", team2.flag);
                 }
  
-                console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
+             //   console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
 
             };
         },
@@ -317,9 +381,10 @@
                     
                     if ( !(nextTeam && nextTeam === teamData.code) ){
 
+                        //set the team info for the next match.
                         GamesForm.setTeamDataInDom
                             (nextMatchDom, nextMatchId, pos, teamData.code,
-                                teamData.flag, teamData.name, teamData.gol, teamData.pen);
+                                teamData.flag, teamData.name, 0, 0);
 
                         console.log("match: ["+matchId+"]["
                             +nextMatchId+"]["+pos+"]["+ teamData.code +"][set!]");
@@ -331,7 +396,7 @@
                     if (nextTeam){
 
                         GamesForm.setTeamDataInDom
-                            (nextMatchDom, nextMatchId, pos, "", "", "", "", "");
+                            (nextMatchDom, nextMatchId, pos, "", "", "", 0, 0);
 
                         console.log("match: ["+matchId+"]["
                             +nextMatchId+"]["+pos+"][cleared]");

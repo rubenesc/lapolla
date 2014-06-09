@@ -87,6 +87,12 @@ exports.create = function(req, res, next) {
 	util.debug('--> req.isAuthenticated(): ' + req.isAuthenticated());
 	util.debug('--> req.user: ' + req.user);
 
+	var now = new Date();
+	var limiteDate = new Date(2014,5,12);
+	if (now >= limiteDate){
+		return res.send(403, {msg: "the world cup already started"});
+	}
+
 	//request validation
 	var errors = validateCreateRequest(req);
 
@@ -143,6 +149,13 @@ exports.update = function(req, res, next) {
 	console.log();
 	console.log('--> games.update: ');
 	console.log('--> req.isAuthenticated(): ' + req.isAuthenticated());
+ 
+	var now = new Date();
+	var limiteDate = new Date(2014,5,12);
+	if (now >= limiteDate){
+		return res.send(403, {msg: "the world cup already started"});
+	}
+
  
 	var numberOfMatches = 64;
 	var counter = 0;

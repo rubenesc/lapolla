@@ -161,7 +161,7 @@ color: #faac16;
 }
 
 #register-box {
-    width: 32%;
+    width: 35%;
      background-color: #ffffff;
     position: relative;
     margin-top: 150px;
@@ -306,6 +306,16 @@ label {
 
 }
 
+.panel-penalties {
+    width: 40%;
+    /*background-color:blue;*/
+    float: left;
+    font-family: 'Abel', sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 
 .panel-img img {
     margin: 8px 3px 8px 3px;
@@ -324,10 +334,6 @@ label {
     margin-top: 5px;
    
 
-}
-
-.login-lnk, .register-lnk {
-    font-size: 18px;
 }
 
 

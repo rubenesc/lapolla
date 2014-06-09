@@ -27,6 +27,12 @@ var GameFactory = require("../../test/helpers/game-factory");
 			canEdit = true;
 		}
 
+		var now = new Date();
+		var limiteDate = new Date(2014,5,12);
+		if (now >= limiteDate){
+			canEdit = false;
+		}
+
 	 	var opts = retrieveListOptions(req);
 	 	
 		console.log();

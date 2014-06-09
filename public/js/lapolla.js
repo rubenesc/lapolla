@@ -41,6 +41,9 @@
             this.knockoutKeys[63] = [62,2,63,"l"];
             this.knockoutKeys[64] = [61,1,63,"l"];
 
+            this.knockoutKeys[65] = [63,,,"n"];
+            this.knockoutKeys[66] = [64,,,"n"];
+
             GamesForm.sortTeams();
 
         },
@@ -81,12 +84,14 @@
             if (matchInfo && matchInfo.gol1 && matchInfo.gol2 
             	&& matchInfo.gol1 === matchInfo.gol2 ){
 
-            	matchDom.find("input[name='p_"+matchId+"_1']").show();
-            	matchDom.find("input[name='p_"+matchId+"_2']").show();
+                matchDom.find(".div-penalties").show();
+                // matchDom.find("input[name='p_"+matchId+"_1']").show();
+                // matchDom.find("input[name='p_"+matchId+"_2']").show();
             } else {
 
-            	matchDom.find("input[name='p_"+matchId+"_1']").hide();
-            	matchDom.find("input[name='p_"+matchId+"_2']").hide();
+                // matchDom.find("input[name='p_"+matchId+"_1']").hide();
+                // matchDom.find("input[name='p_"+matchId+"_2']").hide();
+                matchDom.find(".div-penalties").hide();
 
             	matchDom.find("input[name='p_"+matchId+"_1']").val(0);
             	matchDom.find("input[name='p_"+matchId+"_2']").val(0);
@@ -123,7 +128,10 @@
             if (isNaN(game.gol2)){
                 game.gol2 = 0;
                 docContext.find("input[name='g_"+matchId+"_2']").val(0);
-            }            
+            }     
+
+            //console.log("buildGameInfoFromDom: [" + matchId +"][" + game.code1 + "]][" + game.code2 + "]][" + game.gol1 + "]][" + game.gol2 + "]][" + game.pen1 + "]][" + game.pen2 + "]");
+       
 
             return game;
         },
@@ -184,7 +192,7 @@
                 var hmA = {};
 
                 //console.log("group: " + group);
-                $("#group-"+group+" li").each(function(i){
+                $("#group-"+group+" .a").each(function(i){
 
                     var game = GamesForm.buildGameInfoFromDom($(this));
                     gamesArr.push(game);
@@ -298,13 +306,11 @@
 
                 this.groupRankingHash[group] = groupRanking;
 
-                if (group === "a"){
-                    console.log("");
-                    console.log("group: "+ group);
-                    groupRanking.forEach(function(entry){
-                        console.log("["+entry.team+"]["+entry.flag+"]["+entry.p+"]["+entry.gf+"]["+entry.ga+"]["+entry.gd+"]");
-                    });
-                }
+                // console.log("");
+                // console.log("group: "+ group);
+                // groupRanking.forEach(function(entry){
+                //     console.log("["+entry.team+"]["+entry.flag+"]["+entry.p+"]["+entry.gf+"]["+entry.ga+"]["+entry.gd+"]");
+                // });
             }
 
             GamesForm.processGroupWinners();
@@ -328,7 +334,7 @@
                 var team1Dom = $("input[name='matchId_"+matchId1+"']").parent();
 
                 var currentTeam1 = team1Dom.find("input[name='team_"+matchId1+"_code_1']").val();
-
+                //console.log(matchId1 + ": currentTeam1: " + currentTeam1);
                 if ( !(currentTeam1 && currentTeam1 === team1.team) ){
                     team1Dom.find("input[name='team_"+matchId1+"_code_1']").val(team1.team);
                     team1Dom.find("input[name='g_"+matchId1+"_1']").val(0);
@@ -341,6 +347,7 @@
                 var team2Dom = $("input[name='matchId_"+matchId2+"']").parent();
 
                 var currentTeam2 = team2Dom.find("input[name='team_"+matchId2+"_code_2']").val();
+                //console.log(matchId2 + ": currentTeam2: " + currentTeam2);
 
                 if ( !(currentTeam2 && currentTeam2 === team2.team) ){
                     team2Dom.find("input[name='team_"+matchId2+"_code_2']").val(team2.team);
@@ -349,7 +356,7 @@
                     team2Dom.find(".team2-flag").attr("src", team2.flag);
                 }
  
-             //   console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
+                //console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
 
             };
         },
@@ -360,7 +367,7 @@
 
             var key, pos, matchId, gameResult, nextMatchId, matchData, teamData;
 
-            for (var i = 49; i<=64; i++){
+            for (var i = 49; i<=66; i++){
 
                 key = this.knockoutKeys[i];                
                 matchId = key[0];
@@ -386,8 +393,8 @@
                             (nextMatchDom, nextMatchId, pos, teamData.code,
                                 teamData.flag, teamData.name, 0, 0);
 
-                        console.log("match: ["+matchId+"]["
-                            +nextMatchId+"]["+pos+"]["+ teamData.code +"][set!]");
+                        // console.log("match: ["+matchId+"]["
+                        //     +nextMatchId+"]["+pos+"]["+ teamData.code +"][set!]");
                     }
                     
                 } else {
@@ -398,8 +405,8 @@
                         GamesForm.setTeamDataInDom
                             (nextMatchDom, nextMatchId, pos, "", "", "", 0, 0);
 
-                        console.log("match: ["+matchId+"]["
-                            +nextMatchId+"]["+pos+"][cleared]");
+                        // console.log("match: ["+matchId+"]["
+                        //     +nextMatchId+"]["+pos+"][cleared]");
                     }                
 
                 }

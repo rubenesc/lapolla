@@ -4,6 +4,68 @@
 hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
 
  --}}
+
+<style type="text/css">
+
+.name-right, .panel-penalties {
+    text-align: right;
+}
+
+.name-left {
+    text-align: left;
+}
+
+
+
+
+.penalties{
+
+/*      display: block;
+      margin-left: auto;
+      margin-right: auto;    
+*/
+        width: 100%;
+        margin: 10px auto;
+        position: relative;
+        text-align:center;  
+             
+}
+
+
+
+.one{
+    display: inline-block;
+    width: 43.5%;
+    background: #e2e7dc;
+    vertical-align: top;
+    text-align: right;
+}
+
+
+.two{
+
+    display: inline-block;
+    text-align: center;
+    font-family: Helvetica, Arial;
+    font-size: 12px;
+    font-size: 0.75rem;
+    width: 10%;
+    font-weight: bold;
+    color: #606060;
+    margin-top: 5px;    
+
+}
+
+.three{
+    display: inline-block;
+    width: 43.5%;
+    background: #e2e7dc;
+    vertical-align: top;
+    text-align: left;
+}
+
+</style>
+
 <div class="container-fluid">
 
     <div class="big-text">LA POLLA
@@ -57,32 +119,48 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Group A</h4>
                 </div>
                 <div class="panel-body">
-
-                   <ul class="nav-panel">
-                    {{#each games}}
-                        {{#ifCond this.group 'a'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+    
+                {{#each games}}
+                    {{#ifCond this.group 'a'}}
+                    <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
-                            <img class="team1-flag" src="{{this.team1.flag}}">
+                        </div>
 
+                         <div class="panel-img">
+                            <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        {{/ifCond}}
-                    {{/each}}
-                  </ul>
+                        </div>
+                    </div>
+                    {{/ifCond}}
+                {{/each}}
 
                 </div>
             </div>
@@ -94,27 +172,47 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.group 'b'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                                            <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
+                        </div>
+                    </div>
+
                         {{/ifCond}}
                     {{/each}}
                   </ul>
@@ -128,27 +226,47 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.group 'c'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                                            <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
+                        </div>
+                    </div>
+
                         {{/ifCond}}
                     {{/each}}
                   </ul>
@@ -163,27 +281,47 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.group 'd'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                                            <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
+                        </div>
+                    </div>
+
                         {{/ifCond}}
                     {{/each}}
                   </ul>
@@ -197,27 +335,47 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.group 'e'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                                            <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
+                        </div>
+                    </div>
+
                         {{/ifCond}}
                     {{/each}}
                   </ul>
@@ -232,27 +390,47 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.group 'f'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                                            <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
+                        </div>
+                    </div>
+
                         {{/ifCond}}
                     {{/each}}
                   </ul>
@@ -266,27 +444,47 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.group 'g'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                                            <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
+                        </div>
+                    </div>
+
                         {{/ifCond}}
                     {{/each}}
                   </ul>
@@ -300,27 +498,47 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.group 'h'}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                                            <div class="a">
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
+                        </div>
+                    </div>
+
                         {{/ifCond}}
                     {{/each}}
                   </ul>
@@ -340,39 +558,79 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 </div>
                 <div class="panel-body">
 
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 49}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
-                            
+                        </div>
+
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -383,39 +641,79 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 50</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 50}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -426,39 +724,77 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 51</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 51}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -469,39 +805,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 52</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 52}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -511,39 +886,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 53</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 53}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -553,39 +967,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 54</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 54}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -595,39 +1048,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 55</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 55}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -637,39 +1129,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 56</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 56}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -684,39 +1215,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 57</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 57}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -729,39 +1299,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 58</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 58}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -772,39 +1381,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 59</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 59}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -814,39 +1462,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 60</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 60}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -861,39 +1548,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 61</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 61}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -906,39 +1632,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 62</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 62}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -953,39 +1718,79 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 63 </h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 63}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>
@@ -1001,39 +1806,78 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                     <h4>Match: 64</h4>
                 </div>
                 <div class="panel-body">
-                   <ul class="nav-panel">
+                   
                     {{#each games}}
                         {{#ifCond this.matchId 64}}
-                        <li>
-                            <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
-                            <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
-                            <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                            {{!-- <label>{{this.matchId}}</label> --}}
+                    <div>
+                        <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
+                        <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
+                        <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
+                        <div class="panel-name name-right">
                             <label class="team1-name">{{this.team1.name}}</label>
+                        </div>
+
+                         <div class="panel-img">
                             <img class="team1-flag" src="{{this.team1.flag}}">
+                            
+                        </div> 
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="g_{{this.matchId}}_1" class="point-input" value="{{this.gol1}}">
-                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
                             {{else}}
                                 <label>{{this.gol1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="g_{{this.matchId}}_2" class="point-input" value="{{this.gol2}}">
+                            {{else}}
                                 <label>{{this.gol2}}</label>
                             {{/if}}
+                        </div>
 
+                        <div class="panel-img">
                             <img class="team2-flag" src="{{this.team2.flag}}">
+                            
+                        </div> 
+                        <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
-                        </li>
-                        <li>
+                        </div>
+                    </div>
+
+                    <div class="div-penalties">
+                        <div class="panel-penalties">
+                            <label>Penalties</label>
+                        </div>
+
+                        <div class="panel-input">
                             {{#if ../../canEdit}}
                                 <input type="text" name="p_{{this.matchId}}_1" class="point-input" value="{{this.pen1}}">
-                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
                             {{else}}
                                 <label>{{this.pen1}}</label>
+                            {{/if}}
+                        </div>
+
+                        <div class="panel-input">
+                            {{#if ../../canEdit}}
+                                <input type="text" name="p_{{this.matchId}}_2" class="point-input" value="{{this.pen2}}">
+                            {{else}}
                                 <label>{{this.pen2}}</label>
                             {{/if}}
-                        </li>
+                        </div>
+
+                        <div class="panel-penalties">
+                            <label for="your name"> </label>
+                        </div>
+                  
+                    </div>
+                   
+
                         {{/ifCond}}
                     {{/each}}
-                    </ul>
+                    
 
                 </div>
             </div>

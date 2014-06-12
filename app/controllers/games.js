@@ -28,7 +28,7 @@ var GameFactory = require("../../test/helpers/game-factory");
 		}
 
 		var now = new Date();
-		var limiteDate = new Date(2014,5,12);
+		var limiteDate = new Date(2014,5,13);
 		if (now >= limiteDate){
 			canEdit = false;
 		}
@@ -88,7 +88,7 @@ exports.create = function(req, res, next) {
 	util.debug('--> req.user: ' + req.user);
 
 	var now = new Date();
-	var limiteDate = new Date(2014,5,12);
+	var limiteDate = new Date(2014,5,13);
 	if (now >= limiteDate){
 		return res.send(403, {msg: "the world cup already started"});
 	}
@@ -151,7 +151,7 @@ exports.update = function(req, res, next) {
 	console.log('--> req.isAuthenticated(): ' + req.isAuthenticated());
  
 	var now = new Date();
-	var limiteDate = new Date(2014,5,12);
+	var limiteDate = new Date(2014,5,13);
 	if (now >= limiteDate){
 		return res.send(403, {msg: "the world cup already started"});
 	}

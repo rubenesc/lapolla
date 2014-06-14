@@ -5,8 +5,18 @@
         // groups:['a'],
         groupKeys: null,
         knockoutKeys: null,
+        canEdit: null,
 
         initialize: function(){
+
+            var userCanEdit = docContext.find("input[name='user-can-edit']").val();
+            if (userCanEdit && userCanEdit === 'true'){
+                canEdit = true;
+            } else {
+                canEdit = false;
+            }
+
+
             this.groupRankingHash = {};
             this.groupKeys = {};
             this.groupKeys["a"] = [49,51];
@@ -43,6 +53,7 @@
 
             this.knockoutKeys[65] = [63,,,"n"];
             this.knockoutKeys[66] = [64,,,"n"];
+
 
             GamesForm.sortTeams();
 
@@ -106,6 +117,21 @@
 
             var matchId = docContext.find("input[name^='matchId_']").val();
 
+
+
+            var sgol1 = "input[name='g_"+matchId+"_1']";
+            var sgol2 = "input[name='g_"+matchId+"_2']";
+            var spen1 = "input[name='p_"+matchId+"_1']";
+            var spen2 = "input[name='p_"+matchId+"_2']";
+
+            if (!canEdit){
+                sgol1 = sgol1 + "i";
+                sgol2 = sgol2 + "i";
+                spen1 = spen1 + "i";
+                spen2 = spen2 + "i";
+            }
+
+
             var game = {
                 matchId: matchId,
                 name1: docContext.find(".team1-name").text(),
@@ -114,10 +140,10 @@
                 flag2: docContext.find(".team2-flag").attr('src'),                     
                 code1: docContext.find("input[name='team_"+matchId+"_code_1']").val(),
                 code2: docContext.find("input[name='team_"+matchId+"_code_2']").val(),
-                gol1: docContext.find("input[name='g_"+matchId+"_1']").val(),
-                gol2: docContext.find("input[name='g_"+matchId+"_2']").val(),
-                pen1: docContext.find("input[name='p_"+matchId+"_1']").val(),
-                pen2: docContext.find("input[name='p_"+matchId+"_2']").val()
+                gol1: docContext.find(sgol1).val(),
+                gol2: docContext.find(sgol2).val(),
+                pen1: docContext.find(spen1).val(),
+                pen2: docContext.find(spen2).val()
             }
 
             if (isNaN(game.gol1)){
@@ -356,7 +382,7 @@
                     team2Dom.find(".team2-flag").attr("src", team2.flag);
                 }
  
-                //console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
+                console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
 
             };
         },

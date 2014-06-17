@@ -16,7 +16,7 @@ module.exports = function(app, config, passport) {
 
   app.configure(function() {
 
-    app.set('port', process.env.PORT || 80);
+    app.set('port', process.env.PORT || config.app.port || 3000);
     app.set('showStackError', true);
 
     // should be placed before express.static

@@ -296,7 +296,7 @@ function validateCreateRequest(req){
 	}
 
 	//req.check('url', 'Please enter a valid url').isUrl();
-	util.debug("add som validaiton rues to create a game");
+	util.debug("add some validaiton rules to create a game");
 
 	return errors;
 }

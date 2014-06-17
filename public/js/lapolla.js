@@ -8,8 +8,8 @@
         canEdit: null,
 
         initialize: function(){
-
-            var userCanEdit = docContext.find("input[name='user-can-edit']").val();
+ 
+            var userCanEdit = $(".container-fluid").find("input[name='user-can-edit']").val();
             if (userCanEdit && userCanEdit === 'true'){
                 canEdit = true;
             } else {
@@ -92,7 +92,7 @@
             //Since we have the matchDom, verify if we should show or hide the 
             //penalties input
 
-            if (matchInfo && matchInfo.gol1 && matchInfo.gol2 
+            if (matchInfo && !isNaN(matchInfo.gol1) && !isNaN(matchInfo.gol2) 
             	&& matchInfo.gol1 === matchInfo.gol2 ){
 
                 matchDom.find(".div-penalties").show();
@@ -118,18 +118,13 @@
             var matchId = docContext.find("input[name^='matchId_']").val();
 
 
+            //can edit? yes, then you use the input fields, otherwise, use the labels
+            var apendix = (canEdit) ? "" : "i";
 
-            var sgol1 = "input[name='g_"+matchId+"_1']";
-            var sgol2 = "input[name='g_"+matchId+"_2']";
-            var spen1 = "input[name='p_"+matchId+"_1']";
-            var spen2 = "input[name='p_"+matchId+"_2']";
-
-            if (!canEdit){
-                sgol1 = sgol1 + "i";
-                sgol2 = sgol2 + "i";
-                spen1 = spen1 + "i";
-                spen2 = spen2 + "i";
-            }
+            var sgol1 = "input[name='g_"+matchId+"_1"+apendix+"']";
+            var sgol2 = "input[name='g_"+matchId+"_2"+apendix+"']";
+            var spen1 = "input[name='p_"+matchId+"_1"+apendix+"']";
+            var spen2 = "input[name='p_"+matchId+"_2"+apendix+"']";
 
 
             var game = {

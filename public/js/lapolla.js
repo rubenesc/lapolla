@@ -350,8 +350,8 @@
                 var groupRanking = this.groupRankingHash[group];
                 var key = this.groupKeys[group];
 
+                var team1 = groupRanking[0]; //first team of group
                 var matchId1 = key[0];
-                var team1 = groupRanking[0];
                 var team1Dom = $("input[name='matchId_"+matchId1+"']").parent();
 
                 var currentTeam1 = team1Dom.find("input[name='team_"+matchId1+"_code_1']").val();
@@ -363,8 +363,8 @@
                     team1Dom.find(".team1-flag").attr("src", team1.flag);
                 }
 
+                var team2 = groupRanking[1]; //second team of group
                 var matchId2 = key[1];
-                var team2 = groupRanking[1];
                 var team2Dom = $("input[name='matchId_"+matchId2+"']").parent();
 
                 var currentTeam2 = team2Dom.find("input[name='team_"+matchId2+"_code_2']").val();

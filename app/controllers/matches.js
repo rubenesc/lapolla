@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-	Game = mongoose.model('Game'),
+	Match = mongoose.model('Match'),
  	Team = mongoose.model('Team'),	
  	User = mongoose.model('User'),	
 	_ = require('underscore'),
@@ -20,11 +20,11 @@ var GameFactory = require("../../test/helpers/game-factory");
 	var canEdit = false;
 	var isAdmin = false;
 
-	User.findByUsername(req.params.username, function(err, profileUser){
+	User.findByUsername(req.user.username, function(err, profileUser){
 
 		if (err || !profileUser) next(err);
 
-		if (profileUser.id === req.user.id){
+		if (profileUser.isAdmin()){
 			canEdit = true;
 		}
 
@@ -40,21 +40,18 @@ var GameFactory = require("../../test/helpers/game-factory");
 
 		}
 
-
-
 	 	var opts = retrieveListOptions(req);
 	 	
 		console.log();
-		util.debug("--> games.list ... page: {0}, limit: {1}".format(opts.page, opts.limit));
+		util.debug("--> matches.list ... page: {0}, limit: {1}".format(opts.page, opts.limit));
 		util.debug(prettyjson.render(req.body));
 		opts.criteria.user  = profileUser;
 
-
-
 		User.list({}, function(err, userList){
 
-			Game.list(opts, function(err, data) {
+			Match.list(opts, function(err, data) {
 
+				console.log(err);
 				if (err) return next(err);
 
 				var data2 = [];
@@ -62,11 +59,11 @@ var GameFactory = require("../../test/helpers/game-factory");
 					data2.push(data[i].toClient());
 				}
 
-			    Game.count().exec(function (err, count) {
+			    Match.count().exec(function (err, count) {
 
 					if (err) return next(err);
 
-					res.render("games", {
+					res.render("matches", {
 						games: data2, 
 						currentUser: req.user.username,
 						profileUser: profileUser.username,

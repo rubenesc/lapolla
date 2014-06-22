@@ -29,8 +29,7 @@
                   index: { unique: true }, lowercase: true, 
                   match: usernameRegex },
       name: { type: String, default: '' },
-
-
+      role: { type: String, default: '' },
       provider: { type: String, default: '' },
       hashed_password: { type: String, default: '' },
       salt: { type: String, default: '' },
@@ -139,6 +138,14 @@
     return crypto.createHmac('sha1', this.salt).update(password).digest('hex')
   });
 
+  UserSchema.method('isAdmin', function() {
+    
+    // if(role && role === 'admin') return true;
+    if (this.username === 'admin') return true;
+
+    return false;
+
+  });
 
   UserSchema.method('toClient', function() {
     var obj = this.toObject();

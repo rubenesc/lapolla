@@ -28,6 +28,10 @@ module.exports = function(app, passport, auth) {
 	app.get('/games/:username', auth.requiresLogin, games.list);	
 	app.post('/games', auth.requiresLogin, games.update);	
 
+	var matches = require('../app/controllers/matches');
+	app.get('/matches', auth.requiresLogin, matches.list);	
+	app.post('/matches', auth.requiresLogin, matches.update);	
+
 	app.get("/", function(req, res){
 		console.log("---> get /");
 		res.render("login");

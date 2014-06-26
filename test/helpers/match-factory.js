@@ -70,7 +70,7 @@ var MatchFactory = {
 
 	findWinningTeam: function(game){
 
-		var teamPos = null;
+		var teamPos = 3;
 
 	    if (game.gol1 > game.gol2){
 	        teamPos = 1;
@@ -87,15 +87,17 @@ var MatchFactory = {
 
 	    }
 
-	    if (teamPos && teamPos === 1){
-	    	return game.team1.code;
-	    }
+	    return teamPos;
 
-	    if (teamPos && teamPos === 2){
-	    	return game.team2.code;
-	    }
+	    // if (teamPos && teamPos === 1){
+	    // 	return game.team1.code;
+	    // }
 
-	    return game.team1.code; //its a tie
+	    // if (teamPos && teamPos === 2){
+	    // 	return game.team2.code;
+	    // }
+
+	    // return game.team1.code; //its a tie
 	}
 
 	

@@ -447,36 +447,41 @@ function processUserPoints(next, matchHM, user, cb){
 		if (err) return next(err);
 		//console.log("calculating points for user [" + userList[j].username + "]");
 		console.log("");
-		console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "]");
 
 		var auxGame;
 		var auxMatch;
 		var points = 0;
+		console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "] points [" + points +"]");
+
 		for (var k = 0; k < gameList.length; k++){
+
 			auxGame = gameList[k];
 			auxMatch = matchHM[auxGame.matchId];
 
 			if (auxMatch.played){
 
-				var wMatchCode = MatchFactory.findWinningTeam(auxMatch);
-				var wGameCode = MatchFactory.findWinningTeam(auxGame);
+				console.log("match played, id [" + auxMatch.matchId +"]["+auxMatch.team1.code +"]["+auxMatch.team2.code +"]");
 
-				if (wMatchCode && wGameCode && wMatchCode === wGameCode){
+				var wTeamMatch = MatchFactory.findWinningTeam(auxMatch);
+				var wTeamGame = MatchFactory.findWinningTeam(auxGame);
+
+				if (wTeamMatch === wTeamGame){
 					points = points + 1;
-					console.log("Accerted Winning Team [" + auxGame.matchId + "][" + wMatchCode + "][" + points +"]");
-				}
+					console.log("Accerted Winning Team [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]");
 
-				var gols1 = auxGame.gol1 + "," + auxGame.gol2 + "," + auxGame.pen1 + "," + auxGame.pen2;
-				var gols2 = auxMatch.gol1 + "," + auxMatch.gol2 + "," + auxMatch.pen1 + "," + auxMatch.pen2;
+					var gols1 = auxGame.gol1 + "," + auxGame.gol2 + "," + auxGame.pen1 + "," + auxGame.pen2;
+					var gols2 = auxMatch.gol1 + "," + auxMatch.gol2 + "," + auxMatch.pen1 + "," + auxMatch.pen2;
 
-				if (auxGame.gol1 === auxMatch.gol1 &&
-						auxGame.gol2 === auxMatch.gol2 &&
-							auxGame.pen1 === auxMatch.pen1 &&
-								auxGame.pen2 === auxMatch.pen2 ){
-					points = points + 2;
-					console.log("Accerted Score [" + auxGame.matchId + "][" + wMatchCode + "][" + points +"]["+ gols1 + "][" + gols2 +"]");
-				} else {
-					console.log("Did not accert goles ["+ gols1 + "][" + gols2 +"]");
+					if (auxGame.gol1 === auxMatch.gol1 &&
+							auxGame.gol2 === auxMatch.gol2 &&
+								auxGame.pen1 === auxMatch.pen1 &&
+									auxGame.pen2 === auxMatch.pen2 ){
+						points = points + 2;
+						console.log("Accerted Score [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]["+ gols1 + "][" + gols2 +"]");
+					} else {
+						console.log("Did not accert goles ["+ gols1 + "][" + gols2 +"]");
+					}
+					
 				}
 
 			}
@@ -527,9 +532,7 @@ function updateAllUsersPoints(next, cb){
 					if (err) next(err);
 					
 					cont ++;
-					console.log("[processed user: " + cont +"]");
-					console.log("[processed user: " + cont +"]");
-					console.log("[processed user: " + cont +"]");
+
 					if (cont === userList.length){
 						cb(null);
 					}

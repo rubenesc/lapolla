@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
 	Match = mongoose.model('Match'),
+	Game = mongoose.model('Game'),
  	Team = mongoose.model('Team'),	
  	User = mongoose.model('User'),	
 	_ = require('underscore'),
@@ -8,47 +9,103 @@ var mongoose = require('mongoose'),
 var Validator = require('validator').Validator;	
 var util = require('util');
 var ApplicationError = require("../helpers/applicationErrors");
-var GameFactory = require("../../test/helpers/game-factory");
+var MatchFactory = require("../../test/helpers/match-factory");
+var UserFactory = require("../../test/helpers/user-factory");
+var fs = require('fs');
+
+exports.reset = function(req, res, next) {
+
+	console.log();
+	util.debug("--> matches.reset");
+
+	console.log();
+	util.debug('cleaning up the "matches" MongoDB collection');
+
+	Match.collection.remove(function(err){
+
+		if (err) return done(err);
+		//once everything is removed, populate it again
+
+	    var matchPath = __dirname + "/../../config/fixtures/matches.csv";
+	    util.debug("match csv file path: [" + matchPath+"]");
+
+		var lineList = fs.readFileSync(matchPath).toString().split('\n');
+		lineList.shift(); // Shift the headings off the list of records.
+
+		var match  = null;
+		var line = null;
+		var count = 0;
+		var matchList = [];
+
+		var i=0;
+
+		lineList.forEach(function(line){
+			i++;
+
+			var arr = line.split(',');
+			var codeTeam1 = arr[2];
+			var codeTeam2 = arr[3];
+
+			match  = new Match(MatchFactory.create(line));
+			
+			util.debug("==match line ["+i+"]==> [" + line +"]");
+	 
+			MatchFactory.addTeamsToMatch(match, codeTeam1, codeTeam2, function(err, match){
+
+				if (err) return done(err);
+
+				match.save(function(err, data){
+
+					if(err) return done(err);
+
+					count ++;
+					matchList.push(data);
+					if (count === lineList.length){
+
+						res.redirect("/matches");
+
+			      	};
+
+				});
+
+			});
+
+		});
+
+
+	});
+
+}			
+
+
+
 
 /**
- * List of games
+ * List of matches
  *
- * @return {"games":[{ link1 }, {link2}, ... ]}
+ * @return {"matches":[{ link1 }, {link2}, ... ]}
  */
  exports.list = function(req, res, next) {
 
-	var canEdit = false;
+	var canEdit = true;
 	var isAdmin = false;
 
 	User.findByUsername(req.user.username, function(err, profileUser){
 
 		if (err || !profileUser) next(err);
 
-		if (profileUser.isAdmin()){
-			canEdit = true;
-		}
-
-
-		if (canEdit && !profileUser.isAdmin()){
-			//if I am a normal user, and I am in my profile, verify if
-			//the I can still the scores based on the time window.
-			var now = new Date();
-			var limiteDate = new Date(2014,5,13);
-			if (now >= limiteDate){
-				canEdit = false;
-			}
-
+		if (!profileUser.isAdmin()){
+//			return next(new Error("You must be logged in as an admin"));
 		}
 
 	 	var opts = retrieveListOptions(req);
-	 	
+	 	opts = {};
 		console.log();
 		util.debug("--> matches.list ... page: {0}, limit: {1}".format(opts.page, opts.limit));
 		util.debug(prettyjson.render(req.body));
-		opts.criteria.user  = profileUser;
+		var userList = [];
 
-		User.list({}, function(err, userList){
-
+		console.dir(opts);
 			Match.list(opts, function(err, data) {
 
 				console.log(err);
@@ -76,13 +133,9 @@ var GameFactory = require("../../test/helpers/game-factory");
 
 			});
 
-		});
+//		});
 
 	});
-
-//	opts = {};
-
-//	});
 
 }
 
@@ -153,15 +206,8 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
 
 	console.log();
-	console.log('--> games.update: ');
+	console.log('--> matches.update: ');
 	console.log('--> req.isAuthenticated(): ' + req.isAuthenticated());
- 
-	var now = new Date();
-	var limiteDate = new Date(2014,5,13);
-	if (now >= limiteDate){
-		return res.send(403, {msg: "the world cup already started"});
-	}
-
  
 	var numberOfMatches = 64;
 	var counter = 0;
@@ -169,7 +215,7 @@ exports.update = function(req, res, next) {
 
 		var matchId = req.body["matchId_"+i];
 
-		Game.findByMatchId(req.user.id, matchId, function(err, data) {
+		Match.findByMatchId(matchId, function(err, data) {
 
 			if(err || !data) {
 				var message = "Resource not found: " + req.url;
@@ -181,10 +227,11 @@ exports.update = function(req, res, next) {
 			var gol2 = req.body["g_"+matchId2+"_2"];
 
 			var pen1 = 0;
-			var pen2 = 0;
+			var pen2 = 0; 
 
 			var codeTeam1 = null; 
 			var codeTeam2 = null;
+			var played = req.body["played_"+matchId2];
 
 			if (matchId2 > 48) {
 				pen1 = req.body["p_"+matchId2+"_1"];
@@ -216,29 +263,18 @@ exports.update = function(req, res, next) {
 			data.gol2 = (isNaN(gol2)) ? data.gol2 : gol2;
 			data.pen1 = (isNaN(pen1)) ? data.pen1 : pen1;
 			data.pen2 = (isNaN(pen2)) ? data.pen2 : pen2;
+			data.played = (played && played === "true") ? true : false; 
 
 			if (matchId2 == 57){
 				// console.log("["+matchId2+"a]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]-["+data.gol1 +"]["+ data.gol2+"]");
 			}
  
-			GameFactory.addTeamsToGame(data, codeTeam1, codeTeam2, function(err, game){
+			MatchFactory.addTeamsToMatch(data, codeTeam1, codeTeam2, function(err, game){
 
 				// console.log(err);
 				if (err) return next(err);
 
-				if (matchId2 == 57){
-					// console.log("["+game.matchId+"b]["+game.team1+"]["+game.team2+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
-					// console.log("["+game.matchId+"b]["+game.team1.code+"]["+game.team2.code+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
-				}
-
-				// var errors = validateUpdateRequest(req);
-
-				// if(errors.length){
-				// 	var message = "Game could not be created";
-				// 	return next(new ApplicationError.Validation(message, errors)); //--> return res.send(400, Validation);
-				// }
-				
-				updateAndSaveGameScore(req, game, gol1, gol2, pen1, pen2, function(err, _data){
+				updateAndSaveScore(req, game, gol1, gol2, pen1, pen2, function(err, _data){
 					counter ++;
 
 					if (err){
@@ -248,7 +284,16 @@ exports.update = function(req, res, next) {
 			    	if (err) return next(err);	
 
 			    	if (counter === numberOfMatches){
-						return res.redirect("/games/"+req.user.username);
+
+
+			    		updateAllUsersPoints(next, function(err){
+
+							return res.redirect("/matches");
+
+			    		});
+
+
+
 			    	}
 
 				});
@@ -286,6 +331,7 @@ exports.del = function(req, res, next) {
 
 
 
+//Helper Methods
 function validateCreateRequest(req){
 
 	var errors = [];
@@ -350,7 +396,7 @@ function updateAndSaveGame(req, data, cb){
 
 }
 
-function updateAndSaveGameScore(req, data, gol1, gol2, pen1, pen2, cb){
+function updateAndSaveScore(req, data, gol1, gol2, pen1, pen2, cb){
 
 	data.gol1 = (isNaN(gol1)) ? data.gol1 : gol1;
 	data.gol2 = (isNaN(gol2)) ? data.gol2 : gol2;
@@ -364,6 +410,7 @@ function updateAndSaveGameScore(req, data, gol1, gol2, pen1, pen2, cb){
 	});
 
 }
+
 
 
 
@@ -388,6 +435,119 @@ function retrieveListOptions(req){
 	}
 
 }
+
+
+function processUserPoints(next, matchHM, user, cb){
+
+	var criteria = {};
+	criteria.user = user;
+
+	Game.list({criteria: criteria}, function(err, gameList) {
+
+		if (err) return next(err);
+		//console.log("calculating points for user [" + userList[j].username + "]");
+		console.log("");
+		console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "]");
+
+		var auxGame;
+		var auxMatch;
+		var points = 0;
+		for (var k = 0; k < gameList.length; k++){
+			auxGame = gameList[k];
+			auxMatch = matchHM[auxGame.matchId];
+
+			if (auxMatch.played){
+
+				var wMatchCode = MatchFactory.findWinningTeam(auxMatch);
+				var wGameCode = MatchFactory.findWinningTeam(auxGame);
+
+				if (wMatchCode && wGameCode && wMatchCode === wGameCode){
+					points = points + 1;
+					console.log("Accerted Winning Team [" + auxGame.matchId + "][" + wMatchCode + "][" + points +"]");
+				}
+
+				var gols1 = auxGame.gol1 + "," + auxGame.gol2 + "," + auxGame.pen1 + "," + auxGame.pen2;
+				var gols2 = auxMatch.gol1 + "," + auxMatch.gol2 + "," + auxMatch.pen1 + "," + auxMatch.pen2;
+
+				if (auxGame.gol1 === auxMatch.gol1 &&
+						auxGame.gol2 === auxMatch.gol2 &&
+							auxGame.pen1 === auxMatch.pen1 &&
+								auxGame.pen2 === auxMatch.pen2 ){
+					points = points + 2;
+					console.log("Accerted Score [" + auxGame.matchId + "][" + wMatchCode + "][" + points +"]["+ gols1 + "][" + gols2 +"]");
+				} else {
+					console.log("Did not accert goles ["+ gols1 + "][" + gols2 +"]");
+				}
+
+			}
+
+		}
+
+		console.log("---> points for user [" + user.username + "][" + points + "]");
+
+		user.points = points;
+		user.save(function(err){
+
+			if (err) return next(err);
+
+			cb(null);
+
+		});
+
+
+	});
+
+}
+
+function updateAllUsersPoints(next, cb){
+
+	Match.list({}, function(err, matchList){
+
+		if (err) return next(err);
+
+		var matchHM = {}; //Match Hashmap based on the match Id
+		for (var i =0; i<matchList.length; i++){
+			matchHM[matchList[i].matchId] = matchList[i];
+		}
+
+		User.list({}, function(err, userList){
+
+			var cont = 0;
+			if (err) return next(err);
+
+//			for (var j =0; j<userList.length; j++){
+			for (var j in userList){
+
+				var _user = userList[j];
+				console.log("");
+				console.log("find games for user [" + _user.id + "]");
+
+				processUserPoints(next, matchHM, _user, function(err){
+
+					if (err) next(err);
+					
+					cont ++;
+					console.log("[processed user: " + cont +"]");
+					console.log("[processed user: " + cont +"]");
+					console.log("[processed user: " + cont +"]");
+					if (cont === userList.length){
+						cb(null);
+					}
+
+				});
+
+			}
+
+
+
+		});
+
+	});
+
+
+}
+
+
 
 
 

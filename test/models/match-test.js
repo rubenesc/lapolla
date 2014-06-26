@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Match = mongoose.model('Match');
 var Team = mongoose.model('Team');
 var User = mongoose.model('User');
-var GameFactory = require("../helpers/game-factory");
+var MatchFactory = require("../helpers/match-factory");
 var UserFactory = require("../helpers/user-factory");
 var fs = require('fs');
 
@@ -15,13 +15,13 @@ describe("match", function() {
 
 	describe('persistence', function() {
 
-		var game = null;
+		var match = null;
 		var user = null;
 		var team1Code = "col";
 		var team2Code = "gre";
 		var team1 = null;
 		var team2 = null;
-		var gameList = [];
+		var matchList = [];
 		var game34 = null;
 		var numberOfGames = 64;
 
@@ -119,11 +119,11 @@ describe("match", function() {
 
   		    var matchesPath = __dirname + "/../../config/fixtures/matches.csv";
   		    util.debug("matches csv file path: [" + matchesPath+"]");
-  		    abcsd
+
 			var lineList = fs.readFileSync(matchesPath).toString().split('\n');
 			lineList.shift(); // Shift the headings off the list of records.
 
-			var game  = null;
+			var match  = null;
 			var line = null;
 			var count = 0;
 
@@ -137,20 +137,19 @@ describe("match", function() {
 				var codeTeam1 = arr[2];
 				var codeTeam2 = arr[3];
 
-				game  = new Game(GameFactory.create(line));
-				game.user = user;
+				match  = new Match(MatchFactory.create(line));
 				util.debug("==line ["+i+"]==> " + line +" []");
 
-				GameFactory.addTeamsToGame(game, codeTeam1, codeTeam2, function(err, game){
+				MatchFactory.addTeamsToMatch(match, codeTeam1, codeTeam2, function(err, match){
 
 					if (err) return done(err);
 
-					game.save(function(err, data){
+					match.save(function(err, data){
 
 						if(err) return done(err);
 
 						count ++;
-						gameList.push(data);
+						matchList.push(data);
 						if (count === lineList.length){
 							done();
 						}

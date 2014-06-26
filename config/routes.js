@@ -13,7 +13,8 @@ module.exports = function(app, passport, auth) {
 	// app.get('/index2', function(req, res){
 	// 	res.redirect('index2.html');
 	// });	
-
+	
+	//User
 	var users = require('../app/controllers/users');
 	app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), users.session);
 	app.post('/signup', users.create);
@@ -21,16 +22,20 @@ module.exports = function(app, passport, auth) {
 	app.post('/logout', auth.requiresLogin, users.logout);
 	app.get('/authenticated', users.isAuthenticated);
 
+	//Teams
 	var teams = require('../app/controllers/teams');
 	app.get('/teams', auth.requiresLogin, teams.list);	
 
+	//Games
 	var games = require('../app/controllers/games');
 	app.get('/games/:username', auth.requiresLogin, games.list);	
 	app.post('/games', auth.requiresLogin, games.update);	
 
+	//Matches
 	var matches = require('../app/controllers/matches');
 	app.get('/matches', auth.requiresLogin, matches.list);	
 	app.post('/matches', auth.requiresLogin, matches.update);	
+	app.post('/matches/reset', auth.requiresLogin, matches.reset);	
 
 	app.get("/", function(req, res){
 		console.log("---> get /");

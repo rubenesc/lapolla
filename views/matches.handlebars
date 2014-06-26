@@ -110,6 +110,7 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
         {{#if canEdit}}
             <button type="button" id="save-data" class="btn btn-danger btn-lg">Save</button>
         {{/if}}
+        <button type="button" id="reset" class="btn btn-danger btn-lg">Reset</button>
         <button type="button" id="logout" class="btn btn-danger btn-lg">Logout</button>
     </div>
 
@@ -163,6 +164,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
                     {{/ifCond}}
                 {{/each}}
@@ -218,6 +223,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                         {{/ifCond}}
@@ -274,6 +283,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                         {{/ifCond}}
@@ -331,6 +344,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                         {{/ifCond}}
@@ -387,6 +404,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                         {{/ifCond}}
@@ -444,6 +465,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                         {{/ifCond}}
@@ -500,6 +525,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                         {{/ifCond}}
@@ -556,6 +585,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                         {{/ifCond}}
@@ -618,6 +651,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
 
@@ -705,6 +742,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -792,6 +833,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -877,6 +922,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -962,6 +1011,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1047,6 +1100,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1132,6 +1189,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1217,6 +1278,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1307,6 +1372,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1395,6 +1464,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1481,6 +1554,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1566,6 +1643,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1656,6 +1737,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1744,6 +1829,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1834,6 +1923,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
 
@@ -1926,6 +2019,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <div class="panel-name name-left">
                             <label class="team2-name">{{this.team2.name}}</label>
                         </div>
+                        <div>
+                    		<input type="checkbox" name="played_{{this.matchId}}" value="true" {{#if this.played}}checked{{/if}}>Played?<br>
+                        </div>
+                        
                     </div>
 
                     <div class="div-penalties">
@@ -1971,13 +2068,19 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
     </form>
 
 </div>
-
+ 
 
 <script>
 
     $(function () {
         GamesForm.initialize();
         GamesForm.setupActions();
+
+        $('body').on('click', '#reset', function(e){
+           e.preventDefault();
+            $('#games-form').attr('action', "/matches/reset").submit();
+        }); 
+
     });
 
 </script>

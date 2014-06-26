@@ -27,11 +27,6 @@ MatchSchema.method('toClient', function() {
 	    delete obj._id;
 	}
 
-	if (obj.user._id){
-		obj.user.id = obj.user._id;
-		delete obj.user._id;
-	}
-
 	// if (obj.team1){
 	// 	obj.team1.flag = "/img/flag.png";
 	// }

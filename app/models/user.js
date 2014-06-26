@@ -28,6 +28,7 @@
       username: { type: String, unique: true, required: true, 
                   index: { unique: true }, lowercase: true, 
                   match: usernameRegex },
+      points: {type: Number, min: 0, max: 1000, required: true, default: 0},                  
       name: { type: String, default: '' },
       role: { type: String, default: '' },
       provider: { type: String, default: '' },
@@ -249,6 +250,7 @@ UserSchema.statics = {
     var criteria = options.criteria || {};
 
     this.find(criteria)
+      .sort({'points': 'desc'})
       .sort({'username': 'asc'})
       .exec(cb);
   }  

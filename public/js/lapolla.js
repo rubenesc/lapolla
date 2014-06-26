@@ -351,33 +351,39 @@
                 var key = this.groupKeys[group];
 
                 var team1 = groupRanking[0]; //first team of group
-                var matchId1 = key[0];
-                var team1Dom = $("input[name='matchId_"+matchId1+"']").parent();
+                if (team1){
+                    var matchId1 = key[0];
+                    var team1Dom = $("input[name='matchId_"+matchId1+"']").parent();
 
-                var currentTeam1 = team1Dom.find("input[name='team_"+matchId1+"_code_1']").val();
-                //console.log(matchId1 + ": currentTeam1: " + currentTeam1);
-                if ( !(currentTeam1 && currentTeam1 === team1.team) ){
-                    team1Dom.find("input[name='team_"+matchId1+"_code_1']").val(team1.team);
-                    team1Dom.find("input[name='g_"+matchId1+"_1']").val(0);
-                    team1Dom.find(".team1-name").text(team1.name);
-                    team1Dom.find(".team1-flag").attr("src", team1.flag);
+                    var currentTeam1 = team1Dom.find("input[name='team_"+matchId1+"_code_1']").val();
+                    //console.log(matchId1 + ": currentTeam1: " + currentTeam1);
+                    if ( !(currentTeam1 && currentTeam1 === team1.team) ){
+                        team1Dom.find("input[name='team_"+matchId1+"_code_1']").val(team1.team);
+                        team1Dom.find("input[name='g_"+matchId1+"_1']").val(0);
+                        team1Dom.find(".team1-name").text(team1.name);
+                        team1Dom.find(".team1-flag").attr("src", team1.flag);
+                    }
                 }
 
                 var team2 = groupRanking[1]; //second team of group
-                var matchId2 = key[1];
-                var team2Dom = $("input[name='matchId_"+matchId2+"']").parent();
+                if (team2){
+                    var matchId2 = key[1];
+                    var team2Dom = $("input[name='matchId_"+matchId2+"']").parent();
 
-                var currentTeam2 = team2Dom.find("input[name='team_"+matchId2+"_code_2']").val();
-                //console.log(matchId2 + ": currentTeam2: " + currentTeam2);
+                    var currentTeam2 = team2Dom.find("input[name='team_"+matchId2+"_code_2']").val();
+                    //console.log(matchId2 + ": currentTeam2: " + currentTeam2);
 
-                if ( !(currentTeam2 && currentTeam2 === team2.team) ){
-                    team2Dom.find("input[name='team_"+matchId2+"_code_2']").val(team2.team);
-                    team2Dom.find("input[name='g_"+matchId2+"_2']").val(0);
-                    team2Dom.find(".team2-name").text(team2.name);
-                    team2Dom.find(".team2-flag").attr("src", team2.flag);
+                    if ( !(currentTeam2 && currentTeam2 === team2.team) ){
+                        team2Dom.find("input[name='team_"+matchId2+"_code_2']").val(team2.team);
+                        team2Dom.find("input[name='g_"+matchId2+"_2']").val(0);
+                        team2Dom.find(".team2-name").text(team2.name);
+                        team2Dom.find(".team2-flag").attr("src", team2.flag);
+                    }
                 }
- 
-                console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
+                
+                if (team1 && team2){
+                    console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
+                } 
 
             };
         },

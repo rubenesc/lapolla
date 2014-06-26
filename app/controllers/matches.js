@@ -451,6 +451,7 @@ function processUserPoints(next, matchHM, user, cb){
 		var auxGame;
 		var auxMatch;
 		var points = 0;
+		
 		console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "] points [" + points +"]");
 
 		for (var k = 0; k < gameList.length; k++){
@@ -462,11 +463,12 @@ function processUserPoints(next, matchHM, user, cb){
 
 				console.log("match played, id [" + auxMatch.matchId +"]["+auxMatch.team1.code +"]["+auxMatch.team2.code +"]");
 
+				var gamePoints = 0;
 				var wTeamMatch = MatchFactory.findWinningTeam(auxMatch);
 				var wTeamGame = MatchFactory.findWinningTeam(auxGame);
 
 				if (wTeamMatch === wTeamGame){
-					points = points + 1;
+					gamePoints = gamePoints + 1;
 					console.log("Accerted Winning Team [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]");
 
 					var gols1 = auxGame.gol1 + "," + auxGame.gol2 + "," + auxGame.pen1 + "," + auxGame.pen2;
@@ -476,13 +478,18 @@ function processUserPoints(next, matchHM, user, cb){
 							auxGame.gol2 === auxMatch.gol2 &&
 								auxGame.pen1 === auxMatch.pen1 &&
 									auxGame.pen2 === auxMatch.pen2 ){
-						points = points + 2;
+						gamePoints = gamePoints + 2;
 						console.log("Accerted Score [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]["+ gols1 + "][" + gols2 +"]");
 					} else {
 						console.log("Did not accert goles ["+ gols1 + "][" + gols2 +"]");
 					}
 					
 				}
+
+				auxGame.points = gamePoints;
+				auxGame.save();
+
+				points = points + gamePoints;
 
 			}
 

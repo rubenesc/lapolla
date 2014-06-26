@@ -32,6 +32,17 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
 }
 
 
+.a{
+    background-color: lightsalmon;
+}
+
+.one-point{
+    background-color: lightgreen;
+}
+
+.three-points{
+    background-color: lightblue;
+}
 
 .one{
     display: inline-block;
@@ -129,7 +140,19 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -184,7 +207,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -240,7 +274,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -297,7 +342,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -353,7 +409,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -410,7 +477,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -466,7 +544,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -522,7 +611,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -584,7 +684,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -671,7 +782,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -758,7 +880,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -843,7 +976,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -928,7 +1072,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1013,7 +1168,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1098,7 +1264,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1183,7 +1360,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1273,7 +1461,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1361,7 +1560,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1447,7 +1657,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1532,7 +1753,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1622,7 +1854,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1710,7 +1953,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1800,7 +2054,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 
@@ -1892,7 +2157,18 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                         <input type="hidden" name="team_{{this.matchId}}_code_1" value="{{this.team1.code}}">
                         <input type="hidden" name="team_{{this.matchId}}_code_2" value="{{this.team2.code}}">
                         <input type="hidden" name="matchId_{{this.matchId}}" value="{{this.matchId}}">  
-                        <div class="panel-name name-right">
+                        
+                        {{#ifCond this.points 0}}
+                            <div class="panel-name name-right">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 1}}
+                            <div class="panel-name name-right one-point">
+                        {{/ifCond}}
+
+                        {{#ifCond this.points 3}}
+                            <div class="panel-name name-right three-points">
+                        {{/ifCond}}
                             <label class="team1-name">{{this.team1.name}}</label>
                         </div>
 

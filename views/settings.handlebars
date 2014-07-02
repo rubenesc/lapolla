@@ -9,7 +9,7 @@
 	<div class="row">
       <!-- left column -->
 
-	<form class="form-horizontal" role="form" id="settings-image-form" enctype="multipart/form-data" action="/settings" method="post">
+	<form class="form-horizontal" role="form" id="settings-image-form" enctype="multipart/form-data" action="/settings/{{username}}" method="post">
 	
       <input name="_method" type="hidden" value="PUT">
 
@@ -57,7 +57,7 @@
 
         {{!-- <h3>Personal info</h3> --}}
         
-		<form class="form-horizontal" role="form" id="settings-form" action="/settings" method="post">
+		<form class="form-horizontal" role="form" id="settings-form" action="/settings/{{username}}" method="post">
 
           <input name="_method" type="hidden" value="PUT">
           

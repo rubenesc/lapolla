@@ -27,15 +27,15 @@ exports.show = function(req, res, next) {
 
 		if (!profileUser){
 
-			req.flash('info', "User: " + usernameToFind +", not found" ); 
+			req.flash('info', "User: " + usernameToFind + ", not found" ); 
 			return res.redirect("/settings");
 		}
 
 		res.render("settings", {
 			loggedIn: req.user.toClient(),
+			username: req.params.username,
 			currentUser: profileUser.toClient()
 		});
-			
 
 
 	});

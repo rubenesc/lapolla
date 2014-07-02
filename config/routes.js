@@ -43,9 +43,11 @@ module.exports = function(app, passport, auth) {
 	//Settings
 	var settings = require('../app/controllers/settings');
 	app.get('/settings', auth.requiresLogin, settings.show);
-	app.put('/settings', auth.requiresLogin, settings.update);
-
 	app.get('/settings/:username', auth.requiresLogin, settings.show);
+	
+	app.put('/settings', auth.requiresLogin, settings.update);
+	app.put('/settings/:username', auth.requiresLogin, settings.update);
+
 
 
 	app.get("/", function(req, res){

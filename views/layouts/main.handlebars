@@ -13,11 +13,39 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	-->
 	<script src="/js/jquery-11.0.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/lapolla.js"></script>
 	<!-- wtf -->
 
 </head>
 	<body>
+	
+		{{#if loggedIn}}
+	    <div class="big-title">
+	    	<a href="/">LA POLLA</a>
+	        
+		        <div class="btn-group user-actions">
+		 	
+		            <ul class="nav navbar-nav navbar-right">
+		                <li class="dropdown">
+
+		                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> <b class="caret"></b></a>
+
+		                    <ul class="dropdown-menu">
+		                        <li><a href="/games/{{loggedIn.username}}">View your profile</a></li>
+		                        <li><a href="/settings">Edit profile</a></li>
+		                        <li class="divider"></li>
+		                        <li><a href="/logout" id="logout">Logout</a></li>
+		                    </ul>
+		                </li>
+		            </ul>
+
+		        </div>
+
+	    </div>
+	    {{/if}}
+
+
 		{{{body}}}
 
 		<div style='position: absolute; bottom: 0; height:40px'>

@@ -67,9 +67,9 @@ var GameFactory = require("../../test/helpers/game-factory");
 					if (err) return next(err);
 
 					res.render("games", {
+						loggedIn: req.user.toClient(),
 						games: data2, 
-						currentUser: req.user.username,
-						profileUser: profileUser.username,
+						currentUser: profileUser.toClient(),
 						canEdit: canEdit,
 						users: userList,
 				        page: opts.page + 1,

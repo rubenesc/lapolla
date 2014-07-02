@@ -28,6 +28,8 @@
       username: { type: String, unique: true, required: true, 
                   index: { unique: true }, lowercase: true, 
                   match: usernameRegex },
+
+      avatar: {type: String, trim: true},                  
       points: {type: Number, min: 0, max: 1000, required: true, default: 0},                  
       name: { type: String, default: '' },
       role: { type: String, default: '' },

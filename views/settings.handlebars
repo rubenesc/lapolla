@@ -1,0 +1,181 @@
+
+
+{{!-- <form class="form-horizontal" role="form" id="settings-form" enctype="multipart/form-data" action="/settings" method="post"> --}}
+
+<div class="container">
+
+    <h1>Edit Profile: {{currentUser.username}}</h1>
+  	<hr>
+	<div class="row">
+      <!-- left column -->
+
+	<form class="form-horizontal" role="form" id="settings-image-form" enctype="multipart/form-data" action="/settings" method="post">
+	
+      <input name="_method" type="hidden" value="PUT">
+
+      <div class="col-md-3">
+        <div class="text-center">
+	    	{{#if currentUser.avatar}}
+          		<img src="{{getImageRendition currentUser.avatar 90}}" class="avatar img-circle" alt="avatar">
+	    	{{else}}
+          		<img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+	    	{{/if}}
+          <h6>Upload a different photo...</h6>
+          
+          {{!-- <input type="file" name="image" accept="image/*" class="form-control"> --}}
+          <input type="file" name="image"  class="form-control">
+        </div>
+		  
+		  <br>
+          <div class="form-group">
+            <div class="col-md-4">
+              <input type="button" id="update-image-cta" class="btn btn-primary" value="Update Image">
+            </div>
+          </div>
+      </div>
+
+
+     </form>
+      
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+		
+	{{#each message.error}}
+		<div class="alert alert-info alert-dismissable">
+		  <a class="panel-close close" data-dismiss="alert">×</a> 
+		  <i class="fa fa-coffee">{{this}}</i>
+		</div>
+	{{/each}}
+	
+	{{#each message.info}}
+        <div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <i class="fa fa-coffee">{{this}}</i>
+        </div>
+	{{/each}}
+
+
+        {{!-- <h3>Personal info</h3> --}}
+        
+		<form class="form-horizontal" role="form" id="settings-form" action="/settings" method="post">
+
+          <input name="_method" type="hidden" value="PUT">
+          
+          <div class="form-group">
+            <label class="col-md-3 control-label">Name:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="name" type="text" value="{{currentUser.name}}">
+            </div>
+          </div>      
+          <div class="form-group">
+            <label class="col-md-3 control-label">Email:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="email" type="text" value="{{currentUser.email}}">
+            </div>
+          </div>      
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Password:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="password1" type="password" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Confirm password:</label>
+            <div class="col-md-8">
+              <input class="form-control" name="password2" type="password" value="">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="button" id="save-cta" class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <input type="reset" id="cancel-cta"class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+{{!-- </form> --}}
+<hr>
+
+
+
+<script> 
+
+	var SettingsForm = { 
+		
+	    setupActions: function(){
+
+	        $('#settings-image-form').on('click', '#update-image-cta', function(e){
+          		$("#settings-image-form").submit();
+	        });
+
+	        $('#settings-form').on('click', '#save-cta', function(e){
+	            //e.preventDefault();
+
+	           //  var error = false;
+          		// document.getElementById("inputEmail").style.borderColor = "";
+          		// document.getElementById("inputUsername").style.borderColor = "";
+          		// document.getElementById("inputPassword").style.borderColor = "";
+          		// document.getElementById("inputPassword2").style.borderColor = "";
+
+
+				// var email = document.getElementById("inputEmail").value;	            
+	   //        	if (!email){
+	   //        		document.getElementById("inputEmail").style.borderColor = "#E34234";
+		  //           error = true;
+	   //        	}
+
+				// var username = document.getElementById("inputUsername").value;	            
+	   //        	if (!username){
+	   //        		document.getElementById("inputUsername").style.borderColor = "#E34234";
+		  //           error = true;
+	   //        	}
+
+				// var pass1 = document.getElementById("inputPassword").value;
+				// var pass2 = document.getElementById("inputPassword2").value;
+
+
+	   //        	if (!pass1){
+	   //        		document.getElementById("inputPassword").style.borderColor = "#E34234";
+		  //           error = true;
+	   //        	}
+
+	   //        	if (!pass2){
+	   //        		document.getElementById("inputPassword2").style.borderColor = "#E34234";
+		  //           error = true;
+	   //        	}
+
+		  //       if (pass1 != pass2) {
+		  //           document.getElementById("inputPassword").style.borderColor = "#E34234";
+		  //           document.getElementById("inputPassword2").style.borderColor = "#E34234";
+		  //           error = true;
+		  //       }
+
+		  //       if (error){
+		  //       	return;
+		  //       }
+
+
+	              $("#settings-form").submit();
+	        }); 
+
+		   $('#settings-form').on('click', '#cancel-cta', function(e){
+		   		window.location = "/";
+		    });    	
+
+
+		}		
+	}
+
+	$(function () {
+	    SettingsForm.setupActions();
+	});
+
+
+</script>

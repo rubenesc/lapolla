@@ -40,11 +40,39 @@ module.exports = function(app, config, passport) {
         // Specify helpers which are only registered on this instance.
         helpers: {
           ifCond: function(v1, v2, options) {
+
               if(v1 === v2) {
                 return options.fn(this);
               }
               return options.inverse(this);
-            }        }
+          }, 
+
+          // .../140603/48b3/d90261/i/  140627y2  .jpg
+          // .../140603/48b3/d90261/i/r/140627y290.jpg
+          getImageRendition: function(v1, v2, options){
+
+           if (v1 && v2){
+
+              // .../140603/48b3/d90261/i/140627y2.jpg
+
+              //  .../140603/48b3/d90261/i/
+              //  /r
+              //  /140627y2
+              //  90
+              //  .jpg
+              // -->.../140603/48b3/d90261/i/r/140627y290.jpg
+
+              v1 = v1.substring(0, v1.lastIndexOf("/")) 
+                    + "/r" 
+                    + v1.substring(v1.lastIndexOf("/"), v1.lastIndexOf(".")) 
+                    + v2 
+                    + v1.substring(v1.lastIndexOf("."));
+
+            }
+
+            return v1;
+          }
+        }
     });
 
 
@@ -61,7 +89,8 @@ module.exports = function(app, config, passport) {
     // limit the size of the request body depending on the content type.
     app.use(type('application/x-www-form-urlencoded', express.limit('64kb')));
     app.use(type('application/json', express.limit('32kb')));
-    app.use(type('image', express.limit('3mb')));
+    app.use(type('multipart/form-data', express.limit('4mb'))); //
+    app.use(type('image', express.limit('2mb')));
     app.use(type('video', express.limit('5mb')));
 
 
@@ -175,6 +204,7 @@ function type(type, fn) {
   return function(req, res, next){
 
     var ct = req.headers['content-type'] || '';
+
     if (0 != ct.indexOf(type)) {
       return next();
     }

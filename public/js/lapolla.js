@@ -67,10 +67,10 @@
 
             }); 
 
-            $('body').on('click', '#logout', function(e){
-               e.preventDefault();
-                $('#games-form').attr('action', "/logout").submit();
-            }); 
+            // $('body').on('click', '#logout', function(e){
+            //    e.preventDefault();
+            //     $('#actions-form').attr('action', "/logout").submit();
+            // }); 
 
             $('#stage-1 input').keyup(function () {
                 GamesForm.sortTeams();
@@ -342,7 +342,7 @@
 
         processGroupWinners: function(){
 
-            console.log("... processGroupWinners ...");
+            //console.log("... processGroupWinners ...");
 
             for (var j in this.groups){
 
@@ -382,7 +382,7 @@
                 }
                 
                 if (team1 && team2){
-                    console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
+                  //  console.log("group: ["+group+"]["+ team1.team +"][" + team2.team +"]");
                 } 
 
             };
@@ -390,7 +390,7 @@
 
         processKnockOutStage: function(){
             
-            console.log("... processKnockOutStage ...");
+            //console.log("... processKnockOutStage ...");
 
             var key, pos, matchId, gameResult, nextMatchId, matchData, teamData;
 

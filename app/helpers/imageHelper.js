@@ -1,5 +1,7 @@
 var fs = require('fs');
 var util = require('util');
+var	check = require('validator').check;
+var Validator = require('validator').Validator;	
 
 var FileHelper = require("../helpers/fileHelper");
 var ApplicationError = require("../helpers/applicationErrors");
@@ -22,8 +24,36 @@ var renditions = {
 	three: 90
 }
 
+var debug = false;
 
 var ImageHelper = {
+
+
+	validateImageRequest: function(req){
+
+		var errors = [];
+
+		var validator = new Validator();
+		
+		Validator.prototype.error = function (msg) {
+			errors.push(msg);
+		    return this;
+		}
+
+		validator.check(req.files.image.type, 'the file ' + req.files.image.name + ', must be an image.').contains('image/');
+
+		// console.log(util.inspect(req.files));
+		
+		if (req.files.image.size > 2000000){
+
+			errors.push("The file exceeds the 2mb");
+
+			ImageHelper.removeFile(req.files.image.path, function(){});
+		}
+
+
+		return errors;
+	},	
 
 
     /**
@@ -142,14 +172,14 @@ var ImageHelper = {
 		// /tmp/600_r_b83a3d84be9b4dc1bf90426f988a3ba3
 		var target1 = ImageHelper.buildTargetPath(sourcePath, renditions.one + "_r_");
 
- 		ImageHelper.resizeImage(sourcePath, target1, renditions.one, false, function(err, sourcePath1, resizeTarget1){
+ 		ImageHelper.resizeImage(sourcePath, target1, renditions.one, true, function(err, sourcePath1, resizeTarget1){
 
-		 	if (err)return cb(err);
+		 	if (err)return cb(err); 
 
 		 	// /tmp/350_r_b83a3d84be9b4dc1bf90426f988a3ba3
 	   		var target2 = ImageHelper.buildTargetPath(sourcePath, renditions.two + "_r_");
 
-			ImageHelper.resizeImage(resizeTarget1, target2, renditions.two, false, function(err, sourcePath2, resizeTarget2){
+			ImageHelper.resizeImage(resizeTarget1, target2, renditions.two, true, function(err, sourcePath2, resizeTarget2){
 
 				if (err) return cb(err);
 
@@ -185,6 +215,7 @@ var ImageHelper = {
      * @return s3Url1: https://s3.amazonaws.com/bucket/130721/1035/000002/i/130721za.jpeg
      *         s3Url2: https://s3.amazonaws.com/bucket/130721/1035/000002/i/r/130721za600.jpeg
      *         s3Url3: https://s3.amazonaws.com/bucket/130721/1035/000002/i/r/130721za350.jpeg
+     *         s3Url4: https://s3.amazonaws.com/bucket/130721/1035/000002/i/r/130721za90.jpeg
 	 *         ...
      */	
 	uploadFilesToS3: function(opts, source, file1, file2, file3, cb){
@@ -297,7 +328,10 @@ var ImageHelper = {
 
 		    if (squareImg){
 
-	    		ImageHelper.crop(target, target, width,width, 0, 0, function(err){
+		    	//give the image resize ratio, I need to select the smallest side to square the image.
+		    	var size = (width < height) ? width : height;
+
+	    		ImageHelper.crop(target, target, size, size, 0, 0, function(err){
 
 					if (err) return cb(err);			
 
@@ -313,6 +347,27 @@ var ImageHelper = {
 
     },
 
+
+    /**
+     *
+     * Delet a fil from the servers file system. 
+	 *
+     * @param file1: /tmp/69c0a0336850e88beea02573491dba52
+     * ...
+     *
+     */	
+	removeFile: function(filePath, cb){
+
+		fs.unlink(filePath, function(err) {
+
+			if (err) return cb(err);
+
+			return cb();
+
+		});
+
+
+	},
 
     /**
      *

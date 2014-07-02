@@ -19,7 +19,9 @@ module.exports = function(app, passport, auth) {
 	app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), users.session);
 	app.post('/signup', users.create);
 
+	app.get('/logout', auth.requiresLogin, users.logout);
 	app.post('/logout', auth.requiresLogin, users.logout);
+
 	app.get('/authenticated', users.isAuthenticated);
 
 	//Teams
@@ -37,9 +39,24 @@ module.exports = function(app, passport, auth) {
 	app.post('/matches', auth.requiresLogin, matches.update);	
 	app.post('/matches/reset', auth.requiresLogin, matches.reset);	
 
+
+	//Settings
+	var settings = require('../app/controllers/settings');
+	app.get('/settings', auth.requiresLogin, settings.show);
+	app.put('/settings', auth.requiresLogin, settings.update);
+
+	app.get('/settings/:username', auth.requiresLogin, settings.show);
+
+
 	app.get("/", function(req, res){
+
 		console.log("---> get /");
-		res.render("login");
+		if (req.user){
+			res.redirect("/games/"+req.user.username);		
+		} else {
+			res.render("login");
+		}
+
 	});
 
 	app.get("/login", function(req, res){

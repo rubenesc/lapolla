@@ -122,7 +122,8 @@ exports.reset = function(req, res, next) {
 
 					res.render("matches", {
 						games: data2, 
-						currentUser: req.user.username,
+						loggedIn: req.user.toClient(),
+						currentUser: profileUser.toClient(),
 						profileUser: profileUser.username,
 						canEdit: canEdit,
 						users: userList,
@@ -464,26 +465,25 @@ function processUserPoints(next, matchHM, user, cb){
 				console.log("match played, id [" + auxMatch.matchId +"]["+auxMatch.team1.code +"]["+auxMatch.team2.code +"]");
 
 				var gamePoints = 0;
-				var wTeamMatch = MatchFactory.findWinningTeam(auxMatch);
-				var wTeamGame = MatchFactory.findWinningTeam(auxGame);
 
-				if (wTeamMatch === wTeamGame){
-					gamePoints = gamePoints + 1;
-					console.log("Accerted Winning Team [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]");
+				if (didAccertTeams(auxMatch, auxGame)){
 
-					var gols1 = auxGame.gol1 + "," + auxGame.gol2 + "," + auxGame.pen1 + "," + auxGame.pen2;
-					var gols2 = auxMatch.gol1 + "," + auxMatch.gol2 + "," + auxMatch.pen1 + "," + auxMatch.pen2;
+					var wTeamMatch = MatchFactory.findWinningTeam(auxMatch);
+					var wTeamGame = MatchFactory.findWinningTeam(auxGame);
 
-					if (auxGame.gol1 === auxMatch.gol1 &&
-							auxGame.gol2 === auxMatch.gol2 &&
-								auxGame.pen1 === auxMatch.pen1 &&
-									auxGame.pen2 === auxMatch.pen2 ){
-						gamePoints = gamePoints + 2;
-						console.log("Accerted Score [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]["+ gols1 + "][" + gols2 +"]");
-					} else {
-						console.log("Did not accert goles ["+ gols1 + "][" + gols2 +"]");
+					if (wTeamMatch === wTeamGame){
+
+						gamePoints = gamePoints + 1;
+						console.log("Accerted Winning Team [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]");
+
+						if (didAccertGoals(auxMatch, auxGame)){
+
+							gamePoints = gamePoints + 2;
+							console.log("Accerted Score [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]");
+						}
+						
 					}
-					
+
 				}
 
 				auxGame.points = gamePoints;
@@ -508,6 +508,36 @@ function processUserPoints(next, matchHM, user, cb){
 
 
 	});
+
+}
+
+function didAccertTeams(match, game){
+	
+	if (match && match.team1 && match.team2 && 
+		game && game.team1 && game.team2 && 
+		(match.team1.code === game.team1.code) &&
+		(match.team2.code === game.team2.code)){
+		return true;
+	}
+
+	return false;
+
+}
+
+function didAccertGoals(match, game){
+
+	var gols1 = game.gol1 + "," + game.gol2 + "," + game.pen1 + "," + game.pen2;
+	var gols2 = match.gol1 + "," + match.gol2 + "," + match.pen1 + "," + match.pen2;
+
+	if (game.gol1 === match.gol1 &&
+			game.gol2 === match.gol2 &&
+				game.pen1 === match.pen1 &&
+					game.pen2 === match.pen2 ){
+
+		return true;
+	}
+
+	return false;
 
 }
 

@@ -77,39 +77,65 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
 
 </style>
 
+
 <div class="container-fluid">
 
-    <div class="big-text">LA POLLA
-        <div class="btn-group">
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">logout</a></li>
-            
-          </ul>
+
+
+
+
+
+{{!-- <div class="container"> --}}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="well well-sm">
+                <div class="media">
+                    <a class="thumbnail pull-left" href="#">
+                        {{#if currentUser.avatar}}
+                            <img class="media-object" src="{{getImageRendition currentUser.avatar 90}}">
+                        {{else}}
+                            <img class="media-object" src="http://sethonsurvival.com/wp-content/uploads/2014/06/Suarez-fangs.jpg">
+                        {{/if}}
+                    </a>
+                    <div class="media-body">
+                        <h2>{{currentUser.username}}</h2>
+                        {{#if currentUser.name}}
+                            <p><strong>name: </strong>{{currentUser.name}}</p>
+                        {{/if}}
+                        <p><strong>Points: </strong>{{currentUser.points}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+{{!-- </div> --}}
 
-	
-    <h2>Current Profile: {{profileUser}}</h2>
+
     <input type="hidden" name="user-can-edit" value="{{this.canEdit}}">
-
-
-    
     <ul id="users">
         {{#each users}}
-        <li class="photo">
-            <a href="/games/{{this.username}}">
-                <div class="points">
-{{!--                     <img src="http://www.history-of-soccer.org/image-files/lionel-messi-cropped-for-box.jpg">
- --}}                    <h2>{{this.username}}</h2>
-                    <h4>{{this.points}} Points</h4>
-                </div>
-            </a>
-        </li>
+                <li class="photo">
+
+                    {{#ifCond this.username ../currentUser.username}}
+                    {{else}}
+                        <a href="/games/{{this.username}}">
+                    {{/ifCond}}
+                        <div class="points">
+                            {{#if this.avatar}}
+                                <img src="{{getImageRendition this.avatar 90}}">
+                            {{else}}
+                                <img src="http://sethonsurvival.com/wp-content/uploads/2014/06/Suarez-fangs.jpg">
+                            {{/if}}
+                            <h2>{{this.username}}</h2>
+                            <h4>{{this.points}} Points</h4>
+
+                        </div>
+                    {{#ifCond this.username ../currentUser.username}}
+                    {{else}}
+                        </a>
+                    {{/ifCond}}
+                        
+                </li>
         {{/each}}
     </ul>
 
@@ -121,9 +147,20 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
         {{#if canEdit}}
             <button type="button" id="save-data" class="btn btn-danger btn-lg">Save</button>
         {{/if}}
-        <button type="button" id="logout" class="btn btn-danger btn-lg">Logout</button>
     </div>
 
+{{!--     <div>
+        <ul >
+            <li >
+            
+                
+            </li>
+            <li class="three-points">
+                3 points
+            </li>
+        </ul>
+    </div>
+ --}}
 
     <section class="score-section">
         <div id="stage-1" class="col-xs-12 col-sm-3">
@@ -2252,6 +2289,7 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
 <script>
 
     $(function () {
+        $('.dropdown-toggle').dropdown();
         GamesForm.initialize();
         GamesForm.setupActions();
     });

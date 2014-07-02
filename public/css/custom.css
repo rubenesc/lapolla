@@ -91,10 +91,22 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 
 
 
-.big-text {
+.big-title {
     font-family: 'Rubik One', sans-serif;
     font-size: 100px;
     text-align: center;
+}
+
+.big-title a {
+    color: black;
+    text-decoration: none;
+}
+
+
+.user-actions {
+    font-family: 'Abel', sans-serif;
+    font-size: 14px;
+    text-align: left;
 }
 
 

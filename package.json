@@ -30,7 +30,7 @@
     "passport-twitter": "latest",
     "passport-github": "latest",
     "passport-google-oauth": "latest",
-    "knox": "~0.8.3",
+    "knox": "latest",
     "gm": "~1.10.0",
     "oauth2orize": "~0.1.0",
     "passport-http-bearer": "~1.0.1",

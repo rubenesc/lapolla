@@ -29,7 +29,12 @@
 		            <ul class="nav navbar-nav navbar-right">
 		                <li class="dropdown">
 
-		                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> <b class="caret"></b></a>
+		                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"> 
+		                    	<div class="photo-small">
+                                	<img src="{{getImageRendition loggedIn.avatar 90}}">
+			                    	{{loggedIn.username}}  <span class="glyphicon glyphicon-user"></span> <b class="caret"></b>
+		                    	</div>
+	                    	</a>
 
 		                    <ul class="dropdown-menu">
 		                        <li><a href="/games/{{loggedIn.username}}">View your profile</a></li>

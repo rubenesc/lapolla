@@ -84,19 +84,14 @@ var FileHelper = {
         var processId = _id.slice(14, 18);
         var counter = _id.slice(18, 24);
 
-        //a: 130718
-        var a = FileHelper.yymmdd(date);
+        //date_yymmdd: 130718
+        var date_yymmdd = FileHelper.yymmdd(date);
 
-        //x: 130718/083a92/5006/000023
-        var x = a + "/"+machineId+"/"+processId+"/"+counter;
+        // 130718/083a92/5006/000023
+        // return date_yymmdd + "/"+machineId+"/"+processId+"/"+counter;
 
-        //y: 130718/083a92/5006/000023
-        var y = a + "/"+machineId+"/"+counter;
-
-        //z: 130718/5006/000023
-        var z = a + "/"+processId+"/"+counter;
-
-        return z;
+        //  130718/5006/000023
+        return date_yymmdd + "/" + processId + "/" + counter;
     },
 
    /**

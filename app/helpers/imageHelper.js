@@ -106,15 +106,15 @@ var ImageHelper = {
 
     /**
      * 
-     * General method in charge of putting together all process of retrieving 
-     * an uploaded image and :
+     * General method in charge of putting together all the process of retrieving 
+     * the uploaded image from the server's temp location in the filesystem and :
 	 * 
      *  1. generating the appropriate renditions based on the uploaded image.
      *          - resizing to a width of no more than ...
      *          - creating a square thumbnail of ...
      *
      *  2. uploading the generated renditions to S3, to an items path, according
-     *     to the user.
+     *     to the user's id
 	 *
      *  3. delete the images from the servers file system once they have been 
      *     uploaded to S3.
@@ -221,14 +221,17 @@ var ImageHelper = {
 	uploadFilesToS3: function(opts, source, file1, file2, file3, cb){
 
 		var req = opts.request;
+		var user = opts.user;
 		var contentType = req.files.image.type;
 		
 		// 130721/1035/000002/i/130721za.jpeg
 		if (opts.isUpdate){
 			var itemPath = FileHelper.convertToRelativePath(opts.updateUrl, config.s3.bucket);
 		} else {
-			var itemPath = FileHelper.buildItemPath(req.user._id, req.files.image.name);
+			var itemPath = FileHelper.buildItemPath(user._id, req.files.image.name);
 		}
+
+		// util.debug("uploadFilesToS3 [{0}][{1}][{2}]".format(user._id, opts.isUpdate, itemPath));
 
 		// 130721/1035/000002/i/r/130721za600.jpeg <-- this depends on itemPath
 		var renditionPath1 = FileHelper.buildRenditionPath(itemPath, renditions.one);

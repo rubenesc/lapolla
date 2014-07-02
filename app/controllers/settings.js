@@ -98,7 +98,7 @@ exports.update = function(req, res, next) {
 
 			var isUpdate = (profileUser.avatar);
 
-			ImageHelper.processItem({'request': req, 'isUpdate': isUpdate, 'updateUrl': profileUser.avatar}, function(err, target1, target2){
+			ImageHelper.processItem({'request': req, 'user': profileUser, 'isUpdate': isUpdate, 'updateUrl': profileUser.avatar}, function(err, target1, target2){
 
 			 	if (err) return next(err);
 

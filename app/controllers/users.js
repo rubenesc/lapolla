@@ -256,7 +256,7 @@ exports.session = function(req, res, next){
 	util.debug('--> users.session');
 	util.debug('--> req.isAuthenticated(): ' + req.isAuthenticated());
 	
-	res.redirect("/games/"+req.user.username);
+	res.redirect("/games/"+req.currentUser.username);
 //	return res.send(200, {message: "user authenticated" });
 	
 }

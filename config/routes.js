@@ -4,7 +4,8 @@ var mongoose = require('mongoose')
    , async = require('async');
 
 
-module.exports = function(app, passport, auth) {
+
+module.exports = function(app, passport, auth, user) {
 
 	// app.get('/', function(req, res){
 	// 	res.redirect('index.html');
@@ -35,8 +36,9 @@ module.exports = function(app, passport, auth) {
 
 	//Matches
 	var matches = require('../app/controllers/matches');
-	app.get('/matches', auth.requiresLogin, matches.list);	
-	app.post('/matches', auth.requiresLogin, matches.update);	
+
+	app.get('/matches', user.can('access admin page'), matches.list);	
+	app.post('/matches', auth.requiresLogin,  matches.update);	
 	app.post('/matches/reset', auth.requiresLogin, matches.reset);	
 
 
@@ -48,15 +50,12 @@ module.exports = function(app, passport, auth) {
 	app.put('/settings', auth.requiresLogin, settings.update);
 	app.put('/settings/:username', auth.requiresLogin, settings.update);
 
-
-
 	app.get("/", function(req, res){
 
-		console.log("---> get /");
-		if (req.user){
-			res.redirect("/games/"+req.user.username);		
+		if (req.currentUser){
+			return res.redirect("/games/"+req.currentUser.username);		
 		} else {
-			res.render("login");
+			return res.render("login");
 		}
 
 	});
@@ -93,21 +92,6 @@ module.exports = function(app, passport, auth) {
 
 
 
-	app.namespace('/api', function(){
-
-		var users = require('../app/controllers/users');
-		app.post('/signup', users.create);
-		app.get('/users/:username', users.show);
-		app.put('/users/:username', users.update);
-		app.del('/users/:username', users.del);
-
-		// https://github.com/spumko/boom/blob/master/lib/index.js		
-		// http://passportjs.org/guide/login/
-		// https://github.com/madhums/nodejs-express-mongoose-demo/blob/master/config/routes.js
-		app.post('/login', passport.authenticate('local'), users.session);
-		app.post('/logout', auth.requiresLogin, users.logout);
-		app.get('/authenticated', users.isAuthenticated);
-	});
 
 
 

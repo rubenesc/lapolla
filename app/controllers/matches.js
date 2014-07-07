@@ -90,7 +90,7 @@ exports.reset = function(req, res, next) {
 	var canEdit = true;
 	var isAdmin = false;
 
-	User.findByUsername(req.user.username, function(err, profileUser){
+	User.findByUsername(req.currentUser.username, function(err, profileUser){
 
 		if (err || !profileUser) next(err);
 
@@ -120,9 +120,9 @@ exports.reset = function(req, res, next) {
 
 					if (err) return next(err);
 
-					res.render("matches", {
+					res.render("admin/matches", {
 						games: data2, 
-						loggedIn: req.user.toClient(),
+						loggedIn: req.currentUser.toClient(),
 						currentUser: profileUser.toClient(),
 						profileUser: profileUser.username,
 						canEdit: canEdit,
@@ -145,7 +145,7 @@ exports.create = function(req, res, next) {
 	console.log();
 	util.debug('--> games.create: ' + req.body.url);
 	util.debug('--> req.isAuthenticated(): ' + req.isAuthenticated());
-	util.debug('--> req.user: ' + req.user);
+	util.debug('--> req.currentUser: ' + req.currentUser);
 
 	var now = new Date();
 	var limiteDate = new Date(2014,5,13);
@@ -172,7 +172,7 @@ exports.create = function(req, res, next) {
 		pen2: req.body.pen2,
 		stage: req.body.stage,
 		points: req.body.points,
-		user: req.user
+		user: req.currentUser
 	});
 
 	game.save(function(err, _game){
@@ -427,7 +427,7 @@ function retrieveListOptions(req){
 	//conditionally add members to object
 	var criteria = {};
 
-	if (req.user) criteria.user = req.user.id;
+	if (req.currentUser) criteria.user = req.currentUser.id;
 
 	return {
 		criteria: criteria,

@@ -18,8 +18,8 @@ exports.show = function(req, res, next) {
 	util.debug('--> settings.show: ');
 	util.debug("--> req.isAuthenticated() = [" + req.isAuthenticated() +"]" );
 
-	var isAdmin = (req.user.role === "admin");
-	var usernameToFind = (isAdmin && req.params.username) ? req.params.username : req.user.username;
+	var isAdmin = (req.currentUser.role === "admin");
+	var usernameToFind = (isAdmin && req.params.username) ? req.params.username : req.currentUser.username;
 
 	User.findByUsername(usernameToFind, function(err, profileUser){
 
@@ -31,8 +31,8 @@ exports.show = function(req, res, next) {
 			return res.redirect("/settings");
 		}
 
-		res.render("settings", {
-			loggedIn: req.user.toClient(),
+		res.render("user/settings", {
+			loggedIn: req.currentUser.toClient(),
 			username: req.params.username,
 			currentUser: profileUser.toClient()
 		});
@@ -45,11 +45,11 @@ exports.show = function(req, res, next) {
 exports.update = function(req, res, next) {
 
 	console.log();
-	util.debug("--> settings.update: [" + req.user.id + "][" + req.user.username + "]");
+	util.debug("--> settings.update: [" + req.currentUser.id + "][" + req.currentUser.username + "]");
  	
 
-	var isAdmin = (req.user.role === "admin");
-	var usernameToFind = (isAdmin && req.params.username) ? req.params.username : req.user.username;
+	var isAdmin = (req.currentUser.role === "admin");
+	var usernameToFind = (isAdmin && req.params.username) ? req.params.username : req.currentUser.username;
 
 	if (req.files && req.files.image){
 

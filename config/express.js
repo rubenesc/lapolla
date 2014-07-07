@@ -3,6 +3,7 @@
  */
 
 var express = require('express'),
+    favicon = require('serve-favicon'),
     path = require('path'),
   	mongoStore = require('connect-mongo')(express),
   	flash = require('connect-flash'),
@@ -22,7 +23,7 @@ module.exports = function(app, config, passport, user) {
     // should be placed before express.static
     app.use(express.compress({
       filter: function(req, res) {
-        console.log(res.getHeader('Content-Type'));
+        // console.log(res.getHeader('Content-Type'));
         return /json|text|javascript|css/.test(res.getHeader('Content-Type'));
       },
       level: 9
@@ -33,14 +34,16 @@ module.exports = function(app, config, passport, user) {
       res.setHeader("Access-Control-Allow-Origin", "*");
       return next();
     });
+    
+    app.use(favicon(__dirname + '/../public/img/favicon.ico'));
 
+    //handlebars
     var hbs = require('./middleware/handlebars/hbs-helper')();
-
     app.engine('handlebars', hbs.engine);
     //app.set('views', config.root + '/app/views');
     app.set('view engine', 'handlebars');
     
-    app.use(express.favicon());
+
     app.use(express.logger('dev'));
 
     // dynamic helpers
@@ -135,7 +138,7 @@ module.exports = function(app, config, passport, user) {
     app.use(function(req, res, next) {
 
       var isApi = false;
-      
+
       if (isApi) {
         res.send('404', {
           message: "not found ...",

@@ -12,13 +12,13 @@ module.exports = function (passport, config) {
 
 	// serialize sessions
 	passport.serializeUser(function(user, done) {
-		util.debug("--> passport.serializeUser");
-		util.debug(util.inspect(user, { showHidden: false, depth: null }));
+		// util.debug("--> passport.serializeUser");
+		// util.debug(util.inspect(user, { showHidden: false, depth: null }));
 		done(null, user._id);
 	});
 
 	passport.deserializeUser(function(id, done) {
-		util.debug("--> passport.deserializeUser: " + id);
+		// util.debug("--> passport.deserializeUser: " + id);
 		User.findOne({ _id: id }, function (err, user) {
 			done(err, user);
 		});

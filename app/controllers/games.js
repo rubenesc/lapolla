@@ -22,7 +22,8 @@ var GameFactory = require("../../test/helpers/game-factory");
 
 	User.findByUsername(req.params.username, function(err, profileUser){
 
-		if (err || !profileUser) next(err);
+
+		if (err || !profileUser) return next(err);
 
 		if (req.currentUser.id === profileUser.id){
 			canEdit = true;

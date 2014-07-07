@@ -3,7 +3,6 @@
  */
 
 var express = require('express'),
-	  exphbs = require('express3-handlebars'),
     path = require('path'),
   	mongoStore = require('connect-mongo')(express),
   	flash = require('connect-flash'),
@@ -12,7 +11,8 @@ var express = require('express'),
   	expressValidator = require('express-validator'),
   	ApplicationError = require("../app/helpers/applicationErrors");
 
-module.exports = function(app, config, passport) {
+
+module.exports = function(app, config, passport, user) {
 
   app.configure(function() {
 
@@ -34,47 +34,7 @@ module.exports = function(app, config, passport) {
       return next();
     });
 
-    // set views path, template engine and default layout
-    var hbs = exphbs.create({
-       defaultLayout: 'main',
-        // Specify helpers which are only registered on this instance.
-        helpers: {
-          ifCond: function(v1, v2, options) {
-
-              if(v1 === v2) {
-                return options.fn(this);
-              }
-              return options.inverse(this);
-          }, 
-
-          // .../140603/48b3/d90261/i/  140627y2  .jpg
-          // .../140603/48b3/d90261/i/r/140627y290.jpg
-          getImageRendition: function(v1, v2, options){
-
-           if (v1 && v2){
-
-              // .../140603/48b3/d90261/i/140627y2.jpg
-
-              //  .../140603/48b3/d90261/i/
-              //  /r
-              //  /140627y2
-              //  90
-              //  .jpg
-              // -->.../140603/48b3/d90261/i/r/140627y290.jpg
-
-              v1 = v1.substring(0, v1.lastIndexOf("/")) 
-                    + "/r" 
-                    + v1.substring(v1.lastIndexOf("/"), v1.lastIndexOf(".")) 
-                    + v2 
-                    + v1.substring(v1.lastIndexOf("."));
-
-            }
-
-            return v1;
-          }
-        }
-    });
-
+    var hbs = require('./middleware/handlebars/hbs-helper')();
 
     app.engine('handlebars', hbs.engine);
     //app.set('views', config.root + '/app/views');
@@ -115,8 +75,11 @@ module.exports = function(app, config, passport) {
     app.use(flash());
 
     // use passport session
-    app.use(passport.initialize());
-    app.use(passport.session());    
+    app.use(passport.initialize({ userProperty: 'currentUser' })); //get authenticated user with: req.currentUser
+    app.use(passport.session());   
+
+    //use connect-roles
+    app.use(user.middleware()); 
 
     //compile coffee script or javascript out of an assets directory.
     app.use(require('connect-assets')());
@@ -137,25 +100,30 @@ module.exports = function(app, config, passport) {
 	app.use(function(err, req, res, next) {
 
       if (err instanceof ApplicationError.Validation){
-        return res.send(400, {error: err} );
+        // return res.send(400, {error: err} );
+        return res.render('400', {error: errorObj});
       }  
 
       if (err instanceof ApplicationError.ResourceNotFound){
-        return res.send(404, {error: err} );
+        // return res.send(404, {error: err} );
+        return res.render('404', {error: err});
       }  
 
-      //if it has a message then it was a cosume error
+      //if it has a message then it was a costume error
       if (err.message){
 
         var errorObj = { message: err.message, code: err.code};
-        return res.send(err.status?err.status:'500', {error: errorObj} );
+        // return res.send(err.status?err.status:'500', {error: errorObj} );
+        return res.render('500', {error: errorObj});
       }
 
       // if it has stack then something went really bad
       if (err.stack){
-        return res.send('500', {
-          error: 'Internal Server Error'
-        });
+
+        return res.render('500', {error: 'Internal Server Error'});
+        // return res.send('500', {
+        //   error: 'Internal Server Error'
+        // });
       }
     
       //the next handler is the 404.
@@ -166,10 +134,19 @@ module.exports = function(app, config, passport) {
     // assume 404 since no middleware responded
     app.use(function(req, res, next) {
 
-      res.send('404', {
-        message: "not found ...",
-        url: req.url
-      });
+      var isApi = false;
+      
+      if (isApi) {
+        res.send('404', {
+          message: "not found ...",
+          url: req.url
+        });
+      } else {
+        return res.render('404', {
+          message: "not found ...",
+          url: req.url
+        });
+      }
 
     });
 

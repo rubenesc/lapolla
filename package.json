@@ -35,7 +35,8 @@
     "oauth2orize": "~0.1.0",
     "passport-http-bearer": "~1.0.1",
     "passport-oauth2-client-password": "~0.1.1",
-    "express3-handlebars": "latest"
+    "express3-handlebars": "latest",
+    "connect-roles": "~3.0.3"
   },
   "devDependencies": {
     "node-dev": "~0.2.9",

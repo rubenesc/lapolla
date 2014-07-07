@@ -24,7 +24,7 @@ var GameFactory = require("../../test/helpers/game-factory");
 
 		if (err || !profileUser) next(err);
 
-		if (profileUser.id === req.user.id){
+		if (req.currentUser.id === profileUser.id){
 			canEdit = true;
 		}
 
@@ -66,8 +66,8 @@ var GameFactory = require("../../test/helpers/game-factory");
 
 					if (err) return next(err);
 
-					res.render("games", {
-						loggedIn: req.user.toClient(),
+					res.render("user/games", {
+						loggedIn: req.currentUser.toClient(),
 						games: data2, 
 						currentUser: profileUser.toClient(),
 						canEdit: canEdit,
@@ -94,7 +94,7 @@ exports.create = function(req, res, next) {
 	console.log();
 	util.debug('--> games.create: ' + req.body.url);
 	util.debug('--> req.isAuthenticated(): ' + req.isAuthenticated());
-	util.debug('--> req.user: ' + req.user);
+	util.debug('--> req.currentUser: ' + req.currentUser);
 
 	var now = new Date();
 	var limiteDate = new Date(2014,5,13);
@@ -121,7 +121,7 @@ exports.create = function(req, res, next) {
 		pen2: req.body.pen2,
 		stage: req.body.stage,
 		points: req.body.points,
-		user: req.user
+		user: req.currentUser
 	});
 
 	game.save(function(err, _game){
@@ -172,7 +172,7 @@ exports.update = function(req, res, next) {
 
 		var matchId = req.body["matchId_"+i];
 
-		Game.findByMatchId(req.user.id, matchId, function(err, data) {
+		Game.findByMatchId(req.currentUser.id, matchId, function(err, data) {
 
 			if(err || !data) {
 				var message = "Resource not found: " + req.url;
@@ -251,7 +251,7 @@ exports.update = function(req, res, next) {
 			    	if (err) return next(err);	
 
 			    	if (counter === numberOfMatches){
-						return res.redirect("/games/"+req.user.username);
+						return res.redirect("/games/"+req.currentUser.username);
 			    	}
 
 				});
@@ -382,7 +382,7 @@ function retrieveListOptions(req){
 	//conditionally add members to object
 	var criteria = {};
 
-	if (req.user) criteria.user = req.user.id;
+	if (req.currentUser) criteria.user = req.currentUser.id;
 
 	return {
 		criteria: criteria,

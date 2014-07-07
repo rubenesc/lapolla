@@ -8,6 +8,7 @@ var express = require('express')
   , passport = require('passport')
   , prettyjson = require('prettyjson'); // this is cool for debugging
 
+
 var util = require('util');  
 
 //this provides namespace capabilities to express routes.
@@ -16,7 +17,7 @@ require('express-namespace');
 // Load configurations
 var env = process.env.NODE_ENV || 'development'
   , config = require('./config/config')[env]
-  , auth = require('./config/middleware/authorization')
+  , auth = require('./config/middleware/auth/authorization')
   , mongoose = require('mongoose');
 
 
@@ -48,20 +49,25 @@ fs.readdirSync(models_path).forEach(function (file) {
   require(models_path+'/'+file)
 });
 
+
+// initialize and configue connect-roles
+var user = require('./config/middleware/auth/connectRoles')();
+
 // bootstrap passport config
-require('./config/passport')(passport, config);
+require('./config/middleware/auth/passport')(passport, config);
 
 //export the app variable, so it can be used in mocha tests.
 var app = module.exports = express();
 
 // express settings
-require('./config/express')(app, config, passport)
+require('./config/express')(app, config, passport, user)
 
 //Flash messages
 require('./config/middleware/upgrade')(app);
 
 // Bootstrap routes
-require('./config/routes')(app, passport, auth)
+require('./config/routes')(app, passport, auth, user);
+
 
 var server = app.listen(app.settings.port, function(){
   util.log(util.format("Express server listening on port: '%d' in '%s' mode", app.settings.port, app.settings.env));

@@ -8,13 +8,14 @@ var util = require('util');
 var ErrorHelper = require("../helpers/errorHelper");
 var AppError = require("../helpers/appError");
 var ApplicationError = require("../helpers/applicationErrors");
+var MailHelper = require("../helpers/mailHelper");
+var UtilHelper = require("../helpers/utilHelper");
 var Game = mongoose.model('Game');
 var Team = mongoose.model('Team');
 var User = mongoose.model('User');
 var GameFactory = require("../../test/helpers/game-factory");
 var UserFactory = require("../../test/helpers/user-factory");
 var fs = require('fs');
-
 
 
 exports.create = function(req, res, next) {
@@ -117,11 +118,11 @@ exports.create = function(req, res, next) {
 
 					GameFactory.addTeamsToGame(game, codeTeam1, codeTeam2, function(err, game){
 
-						if (err) return done(err);
+						if (err) return next(err);
 
 						game.save(function(err, data){
 
-							if(err) return done(err);
+							if(err) return next(err);
 
 							count ++;
 							gameList.push(data);
@@ -282,6 +283,72 @@ exports.logout = function (req, res) {
 	res.redirect("/login");
 //	return res.send(200);
 
+
+}
+
+
+exports.forgot = function(req, res, next){
+
+	var errors = [];
+
+	req.onValidationError(function(msg){
+		errors.push(msg);
+	});
+
+	req.check('email', 'Please enter a valid email').isEmail();
+
+	if(errors.length){
+		req.flash('error', errors);
+		return res.redirect("/forgot");
+	}
+
+	var userEmail = req.body.email;
+	User.findByEmail(userEmail, function(err, user){
+
+	    if (err) return next(err); 
+	    
+	    if (!user) {
+			req.flash('info', "email not found"); 		    	
+			return res.redirect("forgot");
+	    }
+
+
+	    //generate new password
+        var newPassword =  UtilHelper.random(6);
+
+        //update user with new password
+        user.password = newPassword;
+		user.save(function(err) {
+
+		    if (err) { 
+		    	return next(err); 
+		    }
+
+		    //send new password to user;
+			var name = user.name || user.username;
+			var resetPasswordMsgTemplate = "Dear {0},  <p>Our records indicate that you have chosen to reset the password for user {1}.</p> <p>Your new password is: {2} </p> <p> Sincerely, <br/> La Polla Customer Support <br/> http://lapolla.maracana.co</p> "
+
+			// setup e-mail data with unicode symbols
+			var mailOptions = {
+			    from: "Maracana.co <admin@maracana.co>", // sender address
+			    to: userEmail, // list of receivers
+			    subject: "Password Reset Requested", // Subject line
+			    html: resetPasswordMsgTemplate.format(name, userEmail, newPassword) // html body
+			}		
+
+			//send email asynchronously
+			MailHelper.sendMail(mailOptions, function(err){
+				if (err) return next(err);
+			});
+
+
+			req.flash('info', "An email has been sent to {0} with your new password".format(userEmail)); 
+			res.redirect("forgot");
+
+		});
+
+
+	});
 
 }
 

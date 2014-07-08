@@ -13,6 +13,18 @@ var config =  {
 
       db: 'mongodb://localhost/lapolla_dev',
       
+      s3: {
+        key: 'S3_KEY',
+        secret: 'S3_SECRET',
+        bucket: 'lapolla-dev'
+      },
+
+      smtp: {
+        service: "Gmail",
+        user: "YOUR_USERNAME@gmail.com",
+        pass: "YOUR_PASSWORD"
+      },
+
       sessionSecret: 'this_is_a_secret_key'
 
     }, 
@@ -26,6 +38,18 @@ var config =  {
       },
 
       db: 'mongodb://localhost/lapolla_test',
+      
+      s3: {
+        key: 'S3_KEY',
+        secret: 'S3_SECRET',
+        bucket: 'lapolla-test'
+      },
+
+      smtp: {
+        service: "Gmail",
+        user: "YOUR_USERNAME@gmail.com",
+        pass: "YOUR_PASSWORD"
+      },
 
       sessionSecret: 'this_is_a_secret_key'      
     }, 
@@ -38,8 +62,20 @@ var config =  {
         name: 'La Polla'
       },
 
-      db: 'mongodb://localhost/lapolla_test',
+      db: 'mongodb://localhost/lapolla_prod',
       
+      s3: {
+        key: 'S3_KEY',
+        secret: 'S3_SECRET',
+        bucket: 'lapolla-prod'
+      },
+
+      smtp: {
+        service: "Gmail",
+        user: "YOUR_USERNAME@gmail.com",
+        pass: "YOUR_PASSWORD"
+      },
+
       sessionSecret: 'this_is_a_secret_key'
       
     }

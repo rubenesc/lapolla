@@ -17,13 +17,31 @@ module.exports = function(app, passport, auth, user) {
 	
 	//User
 	var users = require('../app/controllers/users');
+
+	app.get("/login", function(req, res){
+		res.render("login");
+	});
+
 	app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), users.session);
+	
 	app.post('/signup', users.create);
 
 	app.get('/logout', auth.requiresLogin, users.logout);
+
 	app.post('/logout', auth.requiresLogin, users.logout);
 
 	app.get('/authenticated', users.isAuthenticated);
+
+	app.get("/register", function(req, res){
+		res.render("register");
+	});	
+
+	//User Forgot Password
+	app.get("/forgot", function(req, res){
+		res.render("forgot");
+	});	
+
+	app.post("/forgot", users.forgot);
 
 	//Teams
 	var teams = require('../app/controllers/teams');
@@ -60,35 +78,7 @@ module.exports = function(app, passport, auth, user) {
 
 	});
 
-	app.get("/login", function(req, res){
-		res.render("login");
-	});
 
-	app.get("/register", function(req, res){
-		res.render("register");
-	});
-
-	app.post("/login", function(req, res){
-
-		console.log("---> post /login ["+req.body.email+"]["+req.body.password+"]");
-
-		res.render("index");
-
-			// if ('piechef' == req.body.user &&
-			// 	 '12345' == req.body.password){
-				
-			// 	req.session.currentUser = req.body.user;
-			// 	req.flash('info', 'You now are logged in as ' + req.session.currentUser);
-			// 	res.redirect('/admin/pies');
-			// 	return;
-			// } else {
-			// 	req.flash('error', 'Invalid user or password.');
-			// 	res.redirect('/login');
-			// 	return;
-			// }
-
-
-	});
 
 
 

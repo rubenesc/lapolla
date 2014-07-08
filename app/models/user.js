@@ -203,6 +203,7 @@ UserSchema.statics = {
   // },
 
   findByEmail: function(email, callback) {
+    
     if (!email){
       return callback(new AppError('email is required'));
     }

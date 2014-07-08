@@ -23,7 +23,7 @@ exports.reset = function(req, res, next) {
 
 	Match.collection.remove(function(err){
 
-		if (err) return done(err);
+		if (err) return next(err);
 		//once everything is removed, populate it again
 
 	    var matchPath = __dirname + "/../../config/fixtures/matches.csv";
@@ -52,11 +52,11 @@ exports.reset = function(req, res, next) {
 	 
 			MatchFactory.addTeamsToMatch(match, codeTeam1, codeTeam2, function(err, match){
 
-				if (err) return done(err);
+				if (err) return next(err);
 
 				match.save(function(err, data){
 
-					if(err) return done(err);
+					if(err) return next(err);
 
 					count ++;
 					matchList.push(data);

@@ -1,0 +1,35 @@
+
+
+
+<div class="container">
+ 	
+ 	<h1>Ranking</h1>
+	
+	<table class="table table-hover">
+	  <thead>
+	    <tr>
+	      <th>Username</th>
+	      <th>Total Points</th>
+	      <th>Asserted Wins</th>
+	      <th>Asserted Scores</th>
+	      <th>Winner</th>
+	      <th>Runner-up</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{{#each users}}
+		    <tr>
+		      <td><a href="/games/{{this.username}}">{{this.username}}</a></td>
+		      <td>{{this.points}}</td>
+		      <td>{{this.stats.assertedWins}}</td>
+		      <td>{{this.stats.assertedScores}}</td>
+		      <td>{{this.stats.winnerName}}</td>
+		      <td>{{this.stats.runnerupName}}</td>
+		    </tr>
+	  	{{/each}}
+
+	  </tbody>
+	</table>
+
+
+</div>

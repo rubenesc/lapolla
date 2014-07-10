@@ -33,6 +33,14 @@
       points: {type: Number, min: 0, max: 1000, required: true, default: 0},                  
       name: { type: String, default: '' },
       role: { type: String, default: '' },
+      stats: {
+        winner: {type : Schema.ObjectId, ref : 'Team'},
+        winnerName: { type: String, default: '' },
+        runnerup: {type : Schema.ObjectId, ref : 'Team'},
+        runnerupName: { type: String, default: '' },
+        assertedWins: {type: Number, min: 0, max: 64, default: 0},                  
+        assertedScores: {type: Number, min: 0, max: 64, default: 0}                  
+      },
       provider: { type: String, default: '' },
       hashed_password: { type: String, default: '' },
       salt: { type: String, default: '' },
@@ -176,7 +184,7 @@
   static methods
 */
 UserSchema.statics = {
- 
+
   //http://mongoosejs.com/docs/2.7.x/docs/methods-statics.html
   validateEmail: function(email) {
       return emailRegex.test(email);
@@ -202,14 +210,6 @@ UserSchema.statics = {
 
   // },
 
-  findByEmail: function(email, callback) {
-    
-    if (!email){
-      return callback(new AppError('email is required'));
-    }
-
-    return this.findOne({email: email.toLowerCase()}, callback);
-  },
 
   findByUsername: function(username, callback) {
 
@@ -256,7 +256,8 @@ UserSchema.statics = {
       .sort({'points': 'desc'})
       .sort({'username': 'asc'})
       .exec(cb);
-  }  
+  }    
+
 }
 
 module.exports = mongoose.model('User', UserSchema);   

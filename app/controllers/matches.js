@@ -278,10 +278,6 @@ exports.update = function(req, res, next) {
 				updateAndSaveScore(req, game, gol1, gol2, pen1, pen2, function(err, _data){
 					counter ++;
 
-					if (err){
-						console.log("fuck error saving score");
-						console.log(err);
-					}
 			    	if (err) return next(err);	
 
 			    	if (counter === numberOfMatches){
@@ -292,9 +288,6 @@ exports.update = function(req, res, next) {
 							return res.redirect("/matches");
 
 			    		});
-
-
-
 			    	}
 
 				});
@@ -440,6 +433,7 @@ function retrieveListOptions(req){
 
 function processUserPoints(next, matchHM, user, cb){
 
+	//find games of user
 	var criteria = {};
 	criteria.user = user;
 
@@ -447,12 +441,13 @@ function processUserPoints(next, matchHM, user, cb){
 
 		if (err) return next(err);
 		//console.log("calculating points for user [" + userList[j].username + "]");
-		console.log("");
 
 		var auxGame;
 		var auxMatch;
 		var points = 0;
-		
+		var assertedWins = 0;
+		var assertedScores = 0;
+
 		console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "] points [" + points +"]");
 
 		for (var k = 0; k < gameList.length; k++){
@@ -461,8 +456,6 @@ function processUserPoints(next, matchHM, user, cb){
 			auxMatch = matchHM[auxGame.matchId];
 
 			if (auxMatch.played){
-
-				console.log("match played, id [" + auxMatch.matchId +"]["+auxMatch.team1.code +"]["+auxMatch.team2.code +"]");
 
 				var gamePoints = 0;
 
@@ -473,31 +466,61 @@ function processUserPoints(next, matchHM, user, cb){
 
 					if (wTeamMatch === wTeamGame){
 
-						gamePoints = gamePoints + 1;
-						console.log("Accerted Winning Team [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]");
-
 						if (didAccertGoals(auxMatch, auxGame)){
 
-							gamePoints = gamePoints + 2;
-							console.log("Accerted Score [" + auxGame.matchId + "][" + wTeamMatch + "][" + points +"]");
+							gamePoints = gamePoints + 3;
+							assertedScores += 1;
+
+						} else {
+
+							gamePoints = gamePoints + 1;
+							assertedWins += 1;
 						}
 						
 					}
 
 				}
 
+				//Save how many points the user got for this game
+				// 0 nothing, 1 guessed the winner, 3 guessed the score.
 				auxGame.points = gamePoints;
 				auxGame.save();
 
-				points = points + gamePoints;
+				points = points + gamePoints; //keep adding overall points.
 
 			}
 
+			if (auxGame.matchId === 64){
+
+				if (wTeamGame === 1){
+			        user.stats.winner = auxGame.team1
+			        user.stats.winnerName = auxGame.team1.name;
+			        user.stats.runnerup = auxGame.team2
+			        user.stats.runnerupName = auxGame.team2.name;
+				} else if (wTeamMatch === 2){
+			        user.stats.winner = auxGame.team2
+			        user.stats.winnerName = auxGame.team2.name;
+			        user.stats.runnerup = auxGame.team1
+			        user.stats.runnerupName = auxGame.team1.name;
+				} else {
+			        user.stats.winner = null;
+			        user.stats.winnerName = null;
+			        user.stats.runnerup = null;
+			        user.stats.runnerupName = null;
+				}
+
+			}
+
+
 		}
 
-		console.log("---> points for user [" + user.username + "][" + points + "]");
+	//	console.log("---> points for user [" + user.username + "][" + points + "]["+ assertedWins +"]["+ assertedScores +"]");
 
+		//save user stats
 		user.points = points;
+		user.stats.assertedWins = assertedWins;
+		user.stats.assertedScores = assertedScores;
+
 		user.save(function(err){
 
 			if (err) return next(err);

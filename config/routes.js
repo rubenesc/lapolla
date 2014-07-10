@@ -78,11 +78,17 @@ module.exports = function(app, passport, auth, user) {
 
 	});
 
+	//Ranking
+	app.get("/ranking", auth.requiresLogin, users.ranking);	
 
+	//Rules
+	app.get("/rules", auth.requiresLogin, function(req, res){
+		return res.render("rules", {loggedIn: req.currentUser.toClient()});
+	});	
 
-
-
-
-
+	//Results
+	app.get("/results", auth.requiresLogin, function(req, res){
+		return res.render("results", {loggedIn: req.currentUser.toClient()});
+	});	
 
 }

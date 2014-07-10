@@ -111,6 +111,12 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     text-align: center;
 }
 
+.med-title {
+    font-family: 'Rubik One', sans-serif;
+    font-size: 50px;
+    text-align: center;
+}
+
 .big-title a {
     color: black;
     text-decoration: none;

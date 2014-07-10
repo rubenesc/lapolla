@@ -22,33 +22,54 @@
 	
 
 		{{#if loggedIn}}
-	    <div class="big-title">
-	    	<a href="/">LA POLLA</a>
-	        
-		        <div class="btn-group user-actions">
-		 	
-		            <ul class="nav navbar-nav navbar-right">
-		                <li class="dropdown">
+			<nav class="navbar navbar-default " role="banner">
+			  <div class="container">
+			    <div class="navbar-header">
+			      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a href="/" class="navbar-brand med-title">LA POLLA</a>
+			    </div>
+			    <nav class="collapse navbar-collapse" role="navigation">
+			      <ul class="nav navbar-nav">
+			        <li>
+			          <a href="/ranking">Ranking</a>
+			        </li>
+			        <li>
+			          <a href="/rules">Rules</a>
+			        </li>
+			        <li>
+				        <div class="btn-group user-actions">
+				 	
+				            <ul class="nav navbar-nav navbar-right">
+				                <li class="dropdown">
 
-		                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"> 
-		                    	<div class="photo-small">
-                                	<img src="{{getImageRendition loggedIn.avatar 90}}">
-			                    	{{loggedIn.username}}  <span class="glyphicon glyphicon-user"></span> <b class="caret"></b>
-		                    	</div>
-	                    	</a>
+				                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"> 
+				                    	<div class="photo-small">
+		                                	<img src="{{getImageRendition loggedIn.avatar 90}}">
+					                    	{{loggedIn.username}}  <span class="glyphicon glyphicon-user"></span> <b class="caret"></b>
+				                    	</div>
+			                    	</a>
 
-		                    <ul class="dropdown-menu">
-		                        <li><a href="/games/{{loggedIn.username}}">View your profile</a></li>
-		                        <li><a href="/settings">Edit profile</a></li>
-		                        <li class="divider"></li>
-		                        <li><a href="/logout" id="logout">Logout</a></li>
-		                    </ul>
-		                </li>
-		            </ul>
+				                    <ul class="dropdown-menu">
+				                        <li><a href="/games/{{loggedIn.username}}">View your profile</a></li>
+				                        <li><a href="/settings">Edit profile</a></li>
+				                        <li class="divider"></li>
+				                        <li><a href="/logout" id="logout">Logout</a></li>
+				                    </ul>
+				                </li>
+				            </ul>
 
-		        </div>
+				        </div>
+			        </li>
+			      </ul>
+			    </nav>
 
-	    </div>
+			  </div>
+			</nav>
 	    {{/if}}
 
 

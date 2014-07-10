@@ -353,4 +353,20 @@ exports.forgot = function(req, res, next){
 }
 
 
+exports.ranking = function(req, res, next){
+	
+	User.list({}, function(err, userList){
+
+		if (err) return next(err);
+
+		res.render("general/ranking", {
+			loggedIn: req.currentUser.toClient(),
+			users: userList
+		});
+
+	});
+
+
+}
+
 

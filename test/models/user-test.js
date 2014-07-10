@@ -4,6 +4,7 @@ var prettyjson = require('prettyjson');
 var util = require("util");
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Team = mongoose.model('Team');
 var UserFactory = require("../helpers/user-factory");
 
 describe('user', function() {
@@ -117,6 +118,7 @@ describe('user', function() {
 
 			duplicatedUser.save(function(err, data){
 
+				
 				err.should.have.be.a('object');
 				err.name.should.be.equal('ValidationError');
 				err.errors['username']['path'].should.be.equal('username');
@@ -127,6 +129,43 @@ describe('user', function() {
 			});
 			
 		});
+
+
+		it('should find existing user', function(done) {
+
+			User.findOne({username: user.username}, function(err, data){
+
+				if (err) return done(err);
+
+				var team1Code = "col";
+				Team.loadByCode(team1Code, function(err, team1) {
+
+					if (err) return done(err);
+
+					data.stats.winner = team1;
+					data.stats.runnerup = "arg";
+
+					data.save(function(err, data){
+						 
+						User.findByUsername2(data.username, function(err, data){
+
+							if (err) return done(err);
+
+							console.dir(data);
+							return done();
+
+						});
+
+					});
+
+				});
+
+			});
+
+		});
+
+
+
 	});
 
 	after(function(done){

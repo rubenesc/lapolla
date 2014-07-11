@@ -1,6 +1,12 @@
 
 var exphbs = require('express3-handlebars');
+var moment = require('moment');
 
+
+var DateFormats = {
+       short: "MM/DD/YYYY",
+       long: "dddd DD.MM.YYYY HH:mm"
+};
 
 module.exports = function () {
 
@@ -41,7 +47,20 @@ module.exports = function () {
             }
 
             return v1;
+          },
+
+          // dateTime: Date Object
+          // format: "short" || "long" || ...
+          //
+          // converts the Date Object to a String to display in an html page.
+          formatDate: function(dateTime, format){
+
+            var dateFormat = DateFormats[format]; //ex: MM/DD/YYYY
+            return moment(dateTime).format(dateFormat);            
+            
           }
+
+
         }
     });
 

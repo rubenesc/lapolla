@@ -448,12 +448,15 @@ function processUserPoints(next, matchHM, user, cb){
 		var assertedWins = 0;
 		var assertedScores = 0;
 
-		console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "] points [" + points +"]");
+		// console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "] points [" + points +"]");
 
 		for (var k = 0; k < gameList.length; k++){
 
 			auxGame = gameList[k];
 			auxMatch = matchHM[auxGame.matchId];
+			
+			//what team did the user choose to win.			
+			var wTeamGame = MatchFactory.findWinningTeam(auxGame);
 
 			if (auxMatch.played){
 
@@ -461,9 +464,9 @@ function processUserPoints(next, matchHM, user, cb){
 
 				if (didAccertTeams(auxMatch, auxGame)){
 
+					//what team actually one.
 					var wTeamMatch = MatchFactory.findWinningTeam(auxMatch);
-					var wTeamGame = MatchFactory.findWinningTeam(auxGame);
-
+					
 					if (wTeamMatch === wTeamGame){
 
 						if (didAccertGoals(auxMatch, auxGame)){
@@ -490,6 +493,7 @@ function processUserPoints(next, matchHM, user, cb){
 
 			}
 
+
 			if (auxGame.matchId === 64){
 
 				if (wTeamGame === 1){
@@ -497,12 +501,13 @@ function processUserPoints(next, matchHM, user, cb){
 			        user.stats.winnerName = auxGame.team1.name;
 			        user.stats.runnerup = auxGame.team2
 			        user.stats.runnerupName = auxGame.team2.name;
-				} else if (wTeamMatch === 2){
+
+				} else if (wTeamGame === 2){
 			        user.stats.winner = auxGame.team2
 			        user.stats.winnerName = auxGame.team2.name;
 			        user.stats.runnerup = auxGame.team1
 			        user.stats.runnerupName = auxGame.team1.name;
-				} else {
+				} else { 
 			        user.stats.winner = null;
 			        user.stats.winnerName = null;
 			        user.stats.runnerup = null;

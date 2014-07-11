@@ -103,8 +103,20 @@ module.exports = function(app, config, passport, user) {
 	app.use(function(err, req, res, next) {
 
       if (err instanceof ApplicationError.Validation){
-        // return res.send(400, {error: err} );
-        return res.render('400', {error: errorObj});
+        //Bad Request: 400 
+
+        //Send the user back to the requested page, with an error message
+        if (err.message){
+          req.flash('info', err.message);
+        } else {
+          req.flash('error', "An unexpected error ocurred. Please try again.");
+        }
+
+        if (err.errors){
+          req.flash('error', err.errors);
+        }
+
+        return res.redirect(req.url);
       }  
 
       if (err instanceof ApplicationError.ResourceNotFound){

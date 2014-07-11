@@ -52,13 +52,19 @@ module.exports = function(app, passport, auth, user) {
 	app.get('/games/:username', auth.requiresLogin, games.list);	
 	app.post('/games', auth.requiresLogin, games.update);	
 
-	//Matches
+	//Admin - Matches
 	var matches = require('../app/controllers/matches');
 
 	app.get('/matches', user.can('access admin page'), matches.list);	
-	app.post('/matches', auth.requiresLogin,  matches.update);	
-	app.post('/matches/reset', auth.requiresLogin, matches.reset);	
+	app.post('/matches', user.can('access admin page'),  matches.update);	
+	app.post('/matches/reset', user.can('access admin page'), matches.reset);	
 
+	//Admin - Config
+	var configs = require('../app/controllers/configs');
+
+	app.get('/config', user.can('access admin page'), configs.show);	
+	app.post('/config', user.can('access admin page'),  configs.create);	
+	app.put('/config', user.can('access admin page'), configs.update);	
 
 	//Settings
 	var settings = require('../app/controllers/settings');

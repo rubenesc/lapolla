@@ -88,8 +88,6 @@ GameSchema.statics = {
 	list: function(options, cb){
 		var criteria = options.criteria || {};
 
-		util.debug("Game.list: ");
-		console.dir(criteria);
 		this.find(criteria)
 			.populate('user', 'username')
 		  	.populate('team1')

@@ -39,7 +39,8 @@
         runnerup: {type : Schema.ObjectId, ref : 'Team'},
         runnerupName: { type: String, default: '' },
         assertedWins: {type: Number, min: 0, max: 64, default: 0},                  
-        assertedScores: {type: Number, min: 0, max: 64, default: 0}                  
+        assertedScores: {type: Number, min: 0, max: 64, default: 0},
+        assertedWinner: {type: Boolean, default: false}              
       },
       provider: { type: String, default: '' },
       hashed_password: { type: String, default: '' },

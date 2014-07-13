@@ -40,6 +40,13 @@ ConfigSchema.pre('save', function(next) {
 ConfigSchema.statics = {
 
 	load: function (cb) {
+
+    console.log("Loading config ...");
+    console.log("Loading config ...");
+    console.log("Loading config ...");
+    console.log("Loading config ...");
+    console.log("Loading config ...");
+    
 		this.findOne({})
 		  .exec(cb);
 	}

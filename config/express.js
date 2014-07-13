@@ -5,10 +5,11 @@
 var express = require('express'),
     favicon = require('serve-favicon'),
     path = require('path'),
+    flash = require('connect-flash'),
+    util = require('util'),
+    logger = require('morgan'),
   	mongoStore = require('connect-mongo')(express),
-  	flash = require('connect-flash'),
   	viewHelpers = require('./middleware/view'),
-  	util = require('util'),
   	expressValidator = require('express-validator'),
   	ApplicationError = require("../app/helpers/applicationErrors");
 
@@ -43,8 +44,13 @@ module.exports = function(app, config, passport, user) {
     //app.set('views', config.root + '/app/views');
     app.set('view engine', 'handlebars');
     
+    //setup logging
+    if (app.get('env') !== 'development') {
+        app.use(logger({}));
+    } else {
+        app.use(logger('dev'));
+    }
 
-    app.use(express.logger('dev'));
 
     // dynamic helpers
    app.use(viewHelpers(config));

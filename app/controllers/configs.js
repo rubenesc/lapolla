@@ -1,13 +1,15 @@
-var mongoose = require('mongoose'),
-	Config = mongoose.model('Config'),
- 	User = mongoose.model('User'),	
-	_ = require('underscore'),
-	prettyjson = require('prettyjson'),
-	check = require('validator').check;
-var Validator = require('validator').Validator;	
-var util = require('util');
-var ApplicationError = require("../helpers/applicationErrors");
-var DateHelper = require("../helpers/dateHelper");
+var mongoose = require('mongoose')
+	, Config = mongoose.model('Config')
+ 	, User = mongoose.model('User')	
+	, _ = require('underscore')
+	, prettyjson = require('prettyjson')
+	, check = require('validator').check 
+    , Validator = require('validator').Validator	
+    , util = require('util')
+    , CacheHelper = require('../helpers/cacheHelper')
+    , ApplicationError = require("../helpers/applicationErrors")
+    , DateHelper = require("../helpers/dateHelper");
+
 
 exports.create = function(req, res, next) {
 
@@ -74,7 +76,6 @@ exports.update = function(req, res, next) {
 		return next(new ApplicationError.Validation(message, errors)); //--> return res.send(400, Validation);
 	}
     
-
 	Config.load(function(err, data){
 
     	if (err) return next(err);	
@@ -90,12 +91,15 @@ exports.update = function(req, res, next) {
 
 	    	if (err) return next(err);	
 
+	    	//Reset Cache
+			CacheHelper.reset();
+
 			req.flash('info', "Data saved correctly.");
 			return res.redirect("/config");
 		});
 
 	});
-
+	
 }
 
 

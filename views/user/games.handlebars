@@ -162,6 +162,14 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
         </ul>
     </div>
  --}}
+    <div class="row text-center">
+    
+            <ul class="nav-panel">
+                {{#each message}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+    </div>
 
     <section class="score-section">
         <div id="stage-1" class="col-xs-12 col-sm-3">

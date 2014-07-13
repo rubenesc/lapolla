@@ -1,12 +1,13 @@
 
 var moment = require('moment');
 
-var parseDateFormats = ['DD MMM YY @ HH:mm', 'DD MMM YY HH:mm',
+var parseDateFormats = [
+						'MM/DD/YY @ HH:mm', 'MM/DD/YY HH:mm',
+                        'MM/DD/YYYY @ HH:mm', 'MM/DD/YYYY HH:mm',
+				     	'DD MMM YY @ HH:mm', 'DD MMM YY HH:mm',
                         'DD MMM YYYY @ HH:mm', 'DD MMM YYYY HH:mm',
                         'DD/MM/YY @ HH:mm', 'DD/MM/YY HH:mm',
-                        'MM/DD/YY @ HH:mm', 'MM/DD/YY HH:mm',
                         'DD/MM/YYYY @ HH:mm', 'DD/MM/YYYY HH:mm',
-                        'MM/DD/YYYY @ HH:mm', 'MM/DD/YYYY HH:mm',
                         'DD-MM-YY @ HH:mm', 'DD-MM-YY HH:mm',
                         'DD-MM-YYYY @ HH:mm', 'DD-MM-YYYY HH:mm',
                         'YYYY-MM-DD @ HH:mm', 'YYYY-MM-DD HH:mm',

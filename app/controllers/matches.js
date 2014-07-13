@@ -285,6 +285,7 @@ exports.update = function(req, res, next) {
 
 			    		updateAllUsersPoints(next, function(err){
 
+			    			req.flash("info", "Data updated correctly");
 							return res.redirect("/matches");
 
 			    		});
@@ -449,14 +450,14 @@ function processUserPoints(next, matchHM, user, cb){
 		var assertedScores = 0;
 
 		// console.log("found gamelist ["+ user.username +"], length [" + gameList.length + "] points [" + points +"]");
-
+		
 		for (var k = 0; k < gameList.length; k++){
 
 			auxGame = gameList[k];
 			auxMatch = matchHM[auxGame.matchId];
 			
 			//what team did the user choose to win.			
-			var wTeamGame = MatchFactory.findWinningTeam(auxGame);
+			var wTeamGame = MatchFactory.findWinningPosition(auxGame);
 
 			if (auxMatch.played){
 
@@ -465,7 +466,7 @@ function processUserPoints(next, matchHM, user, cb){
 				if (didAccertTeams(auxMatch, auxGame)){
 
 					//what team actually one.
-					var wTeamMatch = MatchFactory.findWinningTeam(auxMatch);
+					var wTeamMatch = MatchFactory.findWinningPosition(auxMatch);
 					
 					if (wTeamMatch === wTeamGame){
 
@@ -495,6 +496,22 @@ function processUserPoints(next, matchHM, user, cb){
 
 
 			if (auxGame.matchId === 64){
+
+				//verify if user accerted world cup winner
+				var assertedWinner = false;
+				if (auxMatch.played){
+					var userWinner = MatchFactory.findWinningTeam(auxGame);
+					var matchWinner = MatchFactory.findWinningTeam(auxMatch);
+
+					if (userWinner && matchWinner 
+						&& userWinner.code === matchWinner.code){
+						assertedWinner = true;
+						points = points + 5; 
+					}
+
+				}
+
+		        user.stats.assertedWinner = assertedWinner;
 
 				if (wTeamGame === 1){
 			        user.stats.winner = auxGame.team1
@@ -589,8 +606,6 @@ function updateAllUsersPoints(next, cb){
 			for (var j in userList){
 
 				var _user = userList[j];
-				console.log("");
-				console.log("find games for user [" + _user.id + "]");
 
 				processUserPoints(next, matchHM, _user, function(err){
 

@@ -1,5 +1,14 @@
 
 
+<style type="text/css">
+
+.asserted-winner{
+    background-color: lightgreen;
+}
+
+	
+</style>
+
 
 <div class="container">
  	
@@ -23,7 +32,9 @@
 		      <td>{{this.points}}</td>
 		      <td>{{this.stats.assertedWins}}</td>
 		      <td>{{this.stats.assertedScores}}</td>
-		      <td>{{this.stats.winnerName}}</td>
+		      <td {{#if this.stats.assertedWinner}}class="asserted-winner"{{/if}}>
+		      	{{this.stats.winnerName}}
+		      </td>
 		      <td>{{this.stats.runnerupName}}</td>
 		    </tr>
 	  	{{/each}}

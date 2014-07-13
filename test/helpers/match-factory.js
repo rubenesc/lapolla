@@ -67,8 +67,27 @@ var MatchFactory = {
 
 	},
 
-
 	findWinningTeam: function(game){
+
+		var pos = this.findWinningPosition(game);
+		if (pos === 1 ){
+			// console.dir(game.team1);
+			return game.team1;
+		} else if (pos === 2){
+			// console.dir(game.team2);
+			return game.team2;
+		} 
+
+		return null;
+	},
+	
+
+    /*
+	*   Return 1 = team 1 won
+	*          2 = team 2 won
+	*          3 = tied match
+	*/
+	findWinningPosition: function(game){
 
 		var teamPos = 3;
 
@@ -83,7 +102,6 @@ var MatchFactory = {
 	        } else if (game.pen1 < game.pen2) {
 	            teamPos = 2;
 	        }
-
 
 	    }
 

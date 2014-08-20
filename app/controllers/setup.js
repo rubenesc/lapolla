@@ -96,14 +96,8 @@ exports.show = function(req, res, next) {
 
 	} else {
 
-
-				res.render("admin/setup"
-			, {
-			message: "Application initialized, log in with user: " 
-			});
-
-		// //dispay 404
-		// return next(new ApplicationError.ResourceNotFound()); //--> return res.send(404, ...);
+		//dispay 404
+		return next(new ApplicationError.ResourceNotFound()); //--> return res.send(404, ...);
 
 	}
 

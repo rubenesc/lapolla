@@ -335,7 +335,7 @@ exports.forgot = function(req, res, next){
 			    subject: "Password Reset Requested", // Subject line
 			    html: resetPasswordMsgTemplate.format(name, userEmail, newPassword) // html body
 			}		
-
+			
 			//send email asynchronously
 			MailHelper.sendMail(mailOptions, function(err){
 				if (err) return next(err);

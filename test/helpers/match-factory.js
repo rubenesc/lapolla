@@ -71,10 +71,8 @@ var MatchFactory = {
 
 		var pos = this.findWinningPosition(game);
 		if (pos === 1 ){
-			// console.dir(game.team1);
 			return game.team1;
 		} else if (pos === 2){
-			// console.dir(game.team2);
 			return game.team2;
 		} 
 
@@ -83,7 +81,9 @@ var MatchFactory = {
 	
 
     /*
-	*   Return 1 = team 1 won
+	*   Return positon of the team in game
+	*	Posible Values:
+	*		   1 = team 1 won
 	*          2 = team 2 won
 	*          3 = tied match
 	*/
@@ -107,15 +107,6 @@ var MatchFactory = {
 
 	    return teamPos;
 
-	    // if (teamPos && teamPos === 1){
-	    // 	return game.team1.code;
-	    // }
-
-	    // if (teamPos && teamPos === 2){
-	    // 	return game.team2.code;
-	    // }
-
-	    // return game.team1.code; //its a tie
 	}
 
 	

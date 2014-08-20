@@ -92,49 +92,41 @@ exports.reset = function(req, res, next) {
 
 	User.findByUsername(req.currentUser.username, function(err, profileUser){
 
-		if (err || !profileUser) next(err);
+		if (err) return next(err);
 
-		if (!profileUser.isAdmin()){
-//			return next(new Error("You must be logged in as an admin"));
-		}
+		if (!profileUser){
+			var message = "User not found: " + req.currentUser.username;
+			return next(new ApplicationError.ResourceNotFound(message)); //--> return res.send(404, ...);
+		} 
 
 	 	var opts = retrieveListOptions(req);
 	 	opts = {};
-		console.log();
-		util.debug("--> matches.list ... page: {0}, limit: {1}".format(opts.page, opts.limit));
-		util.debug(prettyjson.render(req.body));
-		var userList = [];
 
-		console.dir(opts);
-			Match.list(opts, function(err, data) {
+		Match.list(opts, function(err, data) {
 
-				console.log(err);
+			if (err) return next(err);
+
+			var data2 = [];
+			for (var i in data){
+				data2.push(data[i].toClient());
+			}
+
+		    Match.count().exec(function (err, count) {
+
 				if (err) return next(err);
 
-				var data2 = [];
-				for (var i in data){
-					data2.push(data[i].toClient());
-				}
+				res.render("admin/matches", {
+					games: data2, 
+					loggedIn: req.currentUser.toClient(),
+					currentUser: profileUser.toClient(),
+					profileUser: profileUser.username,
+					canEdit: canEdit,
+			        page: opts.page + 1,
+	        		pages: Math.ceil(count / opts.limit)
+				});
+		    });
 
-			    Match.count().exec(function (err, count) {
-
-					if (err) return next(err);
-
-					res.render("admin/matches", {
-						games: data2, 
-						loggedIn: req.currentUser.toClient(),
-						currentUser: profileUser.toClient(),
-						profileUser: profileUser.username,
-						canEdit: canEdit,
-						users: userList,
-				        page: opts.page + 1,
-		        		pages: Math.ceil(count / opts.limit)
-					});
-			    });
-
-			});
-
-//		});
+		});
 
 	});
 
@@ -206,12 +198,26 @@ exports.show = function(req, res, next) {
 
 exports.update = function(req, res, next) {
 
-	console.log();
-	console.log('--> matches.update: ');
-	console.log('--> req.isAuthenticated(): ' + req.isAuthenticated());
- 
 	var numberOfMatches = 64;
 	var counter = 0;
+
+	for (var i = 1; i <= numberOfMatches; i++){
+		console.log("[{0}]".format(i));
+
+	}
+
+
+	req.flash("info", "Data updated correctly");
+	return res.redirect("/matches");
+
+
+}
+
+exports.update2 = function(req, res, next) {
+
+	var numberOfMatches = 64;
+	var counter = 0;
+
 	for (var i = 1; i <= numberOfMatches; i++){
 
 		var matchId = req.body["matchId_"+i];

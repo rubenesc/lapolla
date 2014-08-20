@@ -8,6 +8,7 @@ $ git clone https://github.com/rubenesc/lapolla.git
 $ cd lapolla
 $ npm install
 $ cp config/config.js.example config/config.js
+$ cp config/seed/initialize.js.example config/seed/initialize.js
 ```
 
 Edit config/config.js with your preferences and configuration.

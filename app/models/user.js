@@ -219,7 +219,7 @@ UserSchema.statics = {
 
     return this.findOne({email: email.toLowerCase()}, callback);
   },
-
+  
   findByUsername: function(username, callback) {
 
     if (!username){

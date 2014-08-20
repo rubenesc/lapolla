@@ -14,6 +14,12 @@ module.exports = function(app, passport, auth, user) {
 	// app.get('/index2', function(req, res){
 	// 	res.redirect('index2.html');
 	// });	
+
+	//Setup
+	var setup = require('../app/controllers/setup');
+	app.get('/setup', setup.show);
+
+
 	
 	//User
 	var users = require('../app/controllers/users');

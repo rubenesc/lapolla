@@ -2,6 +2,8 @@ dist
 node_modules/
 config/config.js
 config/config
+config/seed/initialize.js
+config/seed/initialize.js.done
 webapp/scripts/vendor
 .tmp
 .sass-cache

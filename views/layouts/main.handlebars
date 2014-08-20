@@ -57,6 +57,11 @@
 				                    <ul class="dropdown-menu">
 				                        <li><a href="/games/{{loggedIn.username}}">View your profile</a></li>
 				                        <li><a href="/settings">Edit profile</a></li>
+				                        {{#ifCond loggedIn.role 'admin'}}
+				                        <li class="divider"></li>
+				                        <li><a href="/matches" id="matches">Enter Results</a></li>
+				                        <li><a href="/config" id="config">Configuration</a></li>
+				                        {{/ifCond}}
 				                        <li class="divider"></li>
 				                        <li><a href="/logout" id="logout">Logout</a></li>
 				                    </ul>

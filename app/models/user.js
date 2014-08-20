@@ -211,7 +211,15 @@ UserSchema.statics = {
 
   // },
 
+  findByEmail: function(email, callback) {
+    
+    if (!email){
+      return callback(new AppError('email is required'));
+    }
 
+    return this.findOne({email: email.toLowerCase()}, callback);
+  },
+  
   findByUsername: function(username, callback) {
 
     if (!username){

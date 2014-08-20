@@ -91,69 +91,29 @@ exports.create = function(req, res, next) {
 
 			} else {
 
-				//
-	  		    var gamesPath = __dirname + "/../../config/fixtures/games.csv";
-	  		    util.debug("games csv file path: [" + gamesPath+"]");
+				initalizeGames(req, user, function(err, req, user){
 
-				var lineList = fs.readFileSync(gamesPath).toString().split('\n');
-				lineList.shift(); // Shift the headings off the list of records.
+					if (err) return next(err);
 
-				var game  = null;
-				var line = null;
-				var count = 0;
-				var gameList = [];
+					//if the user is created, also log him in
+					req.login(user, function(err) {
+			        	if (err) {
+		    		        util.error("--server error message --> " + err.message);
+							var msg = "Registration could not be completed";
+		        			req.flash('error', msg);
+							return res.redirect("/register");
+				        }
 
-				var i=0;
-
-				lineList.forEach(function(line){
-					i++;
-
-					var arr = line.split(',');
-					var codeTeam1 = arr[2];
-					var codeTeam2 = arr[3];
-
-					game  = new Game(GameFactory.create(line));
-					game.user = user;
-					util.debug("==line ["+i+"]==> " + line +" []");
-
-					GameFactory.addTeamsToGame(game, codeTeam1, codeTeam2, function(err, game){
-
-						if (err) return next(err);
-
-						game.save(function(err, data){
-
-							if(err) return next(err);
-
-							count ++;
-							gameList.push(data);
-							if (count === lineList.length){
-
-								//if the user is created, also log him in
-								req.login(user, function(err) {
-						        	if (err) {
-					    		        util.error("--server error message --> " + err.message);
-										var msg = "Registration could not be completed";
-					        			req.flash('error', msg);
-										return res.redirect("/register");
-							        }
-
-									util.debug('user created! _id: ' + user._id);
-									res.redirect("/games/"+user.username);
-				//					return res.send(201, {user: user.toClient() });				        
-						      	});
-
-							}
-						});
-
-					});
-					
-				});			
+						util.debug('user created! _id: ' + user._id);
+						res.redirect("/games/"+user.username);
+	//					return res.send(201, {user: user.toClient() });				        
+			      	});
 
 
-
-
+				})
 
 			}
+
 		});
 
 	});
@@ -369,4 +329,60 @@ exports.ranking = function(req, res, next){
 
 }
 
+var initalizeGames = function initalizeGames(req, user, cb){
+
+	//
+    var gamesPath = __dirname + "/../../config/fixtures/games.csv";
+    // util.debug("games csv file path: [" + gamesPath+"]");
+
+	var lineList = fs.readFileSync(gamesPath).toString().split('\n');
+	lineList.shift(); // Shift the headings off the list of records.
+
+	var game  = null;
+	var line = null;
+	var count = 0;
+	var gameList = [];
+
+	var i=0;
+
+	lineList.forEach(function(line){
+		
+		i++;
+
+		var arr = line.split(',');
+		var codeTeam1 = arr[2];
+		var codeTeam2 = arr[3];
+
+		game  = new Game(GameFactory.create(line));
+		game.user = user;
+		// util.debug("==line ["+i+"]==> " + line +" []");
+
+		GameFactory.addTeamsToGame(game, codeTeam1, codeTeam2, function(err, game){
+
+			if (err) return cb(err);
+
+			game.save(function(err, data){
+
+				if(err) return cb(err);
+
+				count ++;
+				gameList.push(data);
+
+				if (count === lineList.length){
+
+					return cb(null, req, user);
+
+				}
+			});
+
+		});
+		
+	});			
+
+
+
+};
+
+
+exports.initalizeGames = initalizeGames;
 

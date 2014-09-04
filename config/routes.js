@@ -57,6 +57,7 @@ module.exports = function(app, passport, auth, user) {
 	var games = require('../app/controllers/games');
 	app.get('/games/:username', auth.requiresLogin, games.list);	
 	app.post('/games', auth.requiresLogin, games.update);	
+	app.put('/games', auth.requiresLogin, games.update);	
 
 	//Admin - Matches
 	var matches = require('../app/controllers/matches');

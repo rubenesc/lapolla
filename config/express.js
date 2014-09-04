@@ -57,11 +57,10 @@ module.exports = function(app, config, passport, user) {
 
     // limit the size of the request body depending on the content type.
     app.use(type('application/x-www-form-urlencoded', express.limit('64kb')));
-    app.use(type('application/json', express.limit('32kb')));
+    app.use(type('application/json', express.limit('320kb')));
     app.use(type('multipart/form-data', express.limit('4mb'))); //
     app.use(type('image', express.limit('2mb')));
     app.use(type('video', express.limit('5mb')));
-
 
     // bodyParser should be above methodOverride
     app.use(express.bodyParser());
@@ -120,6 +119,10 @@ module.exports = function(app, config, passport, user) {
 
         if (err.errors){
           req.flash('error', err.errors);
+        }
+
+        if (err.url){
+          return res.redirect(err.url);
         }
 
         return res.redirect(req.url);

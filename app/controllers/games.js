@@ -77,9 +77,9 @@ var mongoose = require('mongoose')
 
 						res.render("user/games", {
 							loggedIn: req.currentUser.toClient(),
-							games: data2, 
+							games: JSON.stringify(data2), 
 							currentUser: profileUser.toClient(),
-							canEdit: canEdit,
+							canEdit: JSON.stringify(canEdit),
 							users: userList,
 					        page: opts.page + 1,
 			        		pages: Math.ceil(count / opts.limit)
@@ -189,39 +189,55 @@ exports.update = function(req, res, next) {
 		var limiteDate = config.startDate;
 		if (now >= limiteDate ){
 			var message = "the world cup already started";
-			req.flash('info', "Data could not be saved" ); 
-			req.flash('error', message ); 
-			return res.redirect("/games/"+req.currentUser.username);
+			// req.flash('info', "Data could not be saved" ); 
+			// req.flash('error', message ); 
+			// return res.redirect("/games/"+req.currentUser.username);
+
+    		return res.send(403, {messages: ["Data could not be saved.", message]});
 		}
 
-		var numberOfMatches = 64;
+
+		var gamesArr = req.body.games;
+
+		var game = null;
+		var gamesHM = {};
+		for (var i = 0; i<gamesArr.length; i++){
+			game = gamesArr[i];
+			gamesHM[game.matchId] = game;
+		}
+
+		var numberOfMatches = gamesArr.length;
 		var counter = 0;
-		for (var i = 1; i <= numberOfMatches; i++){
 
-			var matchId = req.body["matchId_"+i];
+		for (var i = 0; i < numberOfMatches; i++){
 
+			var matchId = gamesArr[i].matchId;
+			// console.log("---> ["+i+"]["+matchId+"]");
 			Game.findByMatchId(req.currentUser.id, matchId, function(err, data) {
 
-				if(err || !data) {
+				var game = gamesHM[data.matchId];
+				// console.log("=====> ["+data.matchId+"]["+game.matchId+"]");
+				if(err || !data) { 
+
 					var message = "Resource not found: " + req.url;
-					return next(new ApplicationError.ResourceNotFound(message)); //--> return res.send(404, ...);
+					var url = "/games/"+req.currentUser.username;
+					return next(new ApplicationError.ResourceNotFound(message, err, url)); //--> return res.send(404, ...);
 				}
 
 				var matchId2 = data.matchId;
-				var gol1 = req.body["g_"+matchId2+"_1"];
-				var gol2 = req.body["g_"+matchId2+"_2"];
+				var gol1 = game.gol1;
+				var gol2 = game.gol2;
 
 				var pen1 = 0;
 				var pen2 = 0;
 
-				var codeTeam1 = null; 
-				var codeTeam2 = null;
+				var codeTeam1 = (game.team1) ? game.team1.code : null;
+				var codeTeam2 = (game.team2) ? game.team2.code : null;
 
 				if (matchId2 > 48) {
-					pen1 = req.body["p_"+matchId2+"_1"];
-					pen2 = req.body["p_"+matchId2+"_2"];
-					codeTeam1 = req.body["team_"+matchId2+"_code_1"];
-					codeTeam2 = req.body["team_"+matchId2+"_code_2"];
+					pen1 = game.pen1;
+					pen2 = game.pen2;
+
 
 					//if no teams assigned, reset scores
 					if (!codeTeam1){
@@ -234,13 +250,6 @@ exports.update = function(req, res, next) {
 						pen2 = 0;
 					}
 
-					if (matchId2 == 57){
-						// console.log("["+matchId2+"z]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]");
-					}
-
-				} else { 
-					codeTeam1 = data.team1.code;
-					codeTeam2 = data.team2.code;
 				}
 
 				data.gol1 = (isNaN(gol1)) ? data.gol1 : gol1;
@@ -248,19 +257,12 @@ exports.update = function(req, res, next) {
 				data.pen1 = (isNaN(pen1)) ? data.pen1 : pen1;
 				data.pen2 = (isNaN(pen2)) ? data.pen2 : pen2;
 
-				if (matchId2 == 57){
-					// console.log("["+matchId2+"a]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]-["+data.gol1 +"]["+ data.gol2+"]");
-				}
-	 
+	
 				GameFactory.addTeamsToGame(data, codeTeam1, codeTeam2, function(err, game){
 
 					// console.log(err);
 					if (err) return next(err);
 
-					if (matchId2 == 57){
-						// console.log("["+game.matchId+"b]["+game.team1+"]["+game.team2+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
-						// console.log("["+game.matchId+"b]["+game.team1.code+"]["+game.team2.code+"]["+game.gol1+"]["+game.gol2+"]["+game.pen1+"]["+game.pen2+"]");
-					}
 
 					// var errors = validateUpdateRequest(req);
 
@@ -270,12 +272,14 @@ exports.update = function(req, res, next) {
 					// }
 					
 					updateAndSaveGameScore(req, game, gol1, gol2, pen1, pen2, function(err, _data){
+
 						counter ++;
 
 				    	if (err) return next(err);	
 
 				    	if (counter === numberOfMatches){
-							return res.redirect("/games/"+req.currentUser.username);
+				    		return res.send(200, {messages: ["Data saved correctly."]});
+							// return res.redirect("/games/"+req.currentUser.username);
 				    	}
 
 					});

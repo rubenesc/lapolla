@@ -368,6 +368,43 @@ label {
 
 }
 
+/*--- ko game ---*/
 
+.ko-game label.team {
+
+   font-family: 'Abel', sans-serif;
+    font-size: 14px;
+    margin: 8px 10px; 
+    width: 80px;
+    vertical-align: middle;
+}
+
+.ko-game label.score {
+
+   font-family: 'Abel', sans-serif;
+    font-size: 14px;
+    margin: 8px 10px; 
+    width: 10px;
+    vertical-align: middle;
+}
+
+.ko-game img { 
+
+    font-family: 'Abel', sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 22px;
+    height: 15px;
+}
+
+
+.ko-game input[type=text] {
+    padding: 0px;
+    width: 26px;
+    height: 26px;
+    margin-bottom: 5px;
+    margin-top: 5px;    
+}
 
 

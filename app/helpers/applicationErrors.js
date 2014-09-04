@@ -20,6 +20,12 @@ var ResourceNotFoundError = function (msg) {
   ResourceNotFoundError.super_.call(this, msg, this.constructor);
 }
 
+var ResourceNotFoundError = function (msg, errors, url) {
+  ResourceNotFoundError.super_.call(this, msg, this.constructor);
+  this.errors = errors;
+  this.url = url;
+}
+
 util.inherits(ResourceNotFoundError, AbstractError);
 ResourceNotFoundError.prototype.name = 'Resource Not Found Error';
 //---------------------------------------------------------//
@@ -28,6 +34,13 @@ var ValidationError = function (msg, errors) {
   ValidationError.super_.call(this, msg, this.constructor);
   this.errors = errors;
 }
+
+var ValidationError = function (msg, errors, url) {
+  ValidationError.super_.call(this, msg, this.constructor);
+  this.errors = errors;
+  this.url = url;
+}
+
 
 util.inherits(ValidationError, AbstractError);
 ValidationError.prototype.name = 'Validation Error';

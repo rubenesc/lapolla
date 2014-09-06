@@ -116,11 +116,11 @@ exports.reset = function(req, res, next) {
 				if (err) return next(err);
 
 				res.render("admin/matches", {
-					games: data2, 
+					games: JSON.stringify(data2), 
 					loggedIn: req.currentUser.toClient(),
 					currentUser: profileUser.toClient(),
 					profileUser: profileUser.username,
-					canEdit: canEdit,
+					canEdit: JSON.stringify(canEdit),
 			        page: opts.page + 1,
 	        		pages: Math.ceil(count / opts.limit)
 				});
@@ -198,29 +198,25 @@ exports.show = function(req, res, next) {
 
 exports.update = function(req, res, next) {
 
-	var numberOfMatches = 64;
+
+	util.debug("--> matches.update");
+
+	var gamesArr = req.body.games;
+
+	var game = null;
+	var gamesHM = {};
+	for (var i = 0; i<gamesArr.length; i++){
+		game = gamesArr[i];
+		gamesHM[game.matchId] = game;
+	}	
+
+
+	var numberOfMatches = gamesArr.length;
 	var counter = 0;
 
-	for (var i = 1; i <= numberOfMatches; i++){
-		console.log("[{0}]".format(i));
+	for (var i = 0; i < numberOfMatches; i++){	
 
-	}
-
-
-	req.flash("info", "Data updated correctly");
-	return res.redirect("/matches");
-
-
-}
-
-exports.update2 = function(req, res, next) {
-
-	var numberOfMatches = 64;
-	var counter = 0;
-
-	for (var i = 1; i <= numberOfMatches; i++){
-
-		var matchId = req.body["matchId_"+i];
+		var matchId = gamesArr[i].matchId;
 
 		Match.findByMatchId(matchId, function(err, data) {
 
@@ -229,22 +225,22 @@ exports.update2 = function(req, res, next) {
 				return next(new ApplicationError.ResourceNotFound(message)); //--> return res.send(404, ...);
 			}
 
+			var game = gamesHM[data.matchId];
+
 			var matchId2 = data.matchId;
-			var gol1 = req.body["g_"+matchId2+"_1"];
-			var gol2 = req.body["g_"+matchId2+"_2"];
+			var gol1 = game.gol1;
+			var gol2 = game.gol2;
 
 			var pen1 = 0;
-			var pen2 = 0; 
+			var pen2 = 0;
 
-			var codeTeam1 = null; 
-			var codeTeam2 = null;
-			var played = req.body["played_"+matchId2];
+			var codeTeam1 = (game.team1) ? game.team1.code : null;
+			var codeTeam2 = (game.team2) ? game.team2.code : null;
 
 			if (matchId2 > 48) {
-				pen1 = req.body["p_"+matchId2+"_1"];
-				pen2 = req.body["p_"+matchId2+"_2"];
-				codeTeam1 = req.body["team_"+matchId2+"_code_1"];
-				codeTeam2 = req.body["team_"+matchId2+"_code_2"];
+
+				pen1 = game.pen1;
+				pen2 = game.pen2;
 
 				//if no teams assigned, reset scores
 				if (!codeTeam1){
@@ -257,25 +253,15 @@ exports.update2 = function(req, res, next) {
 					pen2 = 0;
 				}
 
-				if (matchId2 == 57){
-					// console.log("["+matchId2+"z]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]");
-				}
-
-			} else { 
-				codeTeam1 = data.team1.code;
-				codeTeam2 = data.team2.code;
 			}
 
 			data.gol1 = (isNaN(gol1)) ? data.gol1 : gol1;
 			data.gol2 = (isNaN(gol2)) ? data.gol2 : gol2;
 			data.pen1 = (isNaN(pen1)) ? data.pen1 : pen1;
 			data.pen2 = (isNaN(pen2)) ? data.pen2 : pen2;
-			data.played = (played && played === "true") ? true : false; 
 
-			if (matchId2 == 57){
-				// console.log("["+matchId2+"a]["+codeTeam1+"]["+codeTeam2+"]["+gol1+"]["+gol2+"]["+pen1+"]["+pen2+"]-["+data.gol1 +"]["+ data.gol2+"]");
-			}
- 
+			data.played = (game.played) ? true : false; 
+
 			MatchFactory.addTeamsToMatch(data, codeTeam1, codeTeam2, function(err, game){
 
 				// console.log(err);
@@ -290,17 +276,19 @@ exports.update2 = function(req, res, next) {
 
 
 			    		updateAllUsersPoints(next, function(err){
+			     			//req.flash("info", "Data updated correctly");
+							// return res.redirect("/matches");
 
-			    			req.flash("info", "Data updated correctly");
-							return res.redirect("/matches");
-
+				    		return res.send(200, {messages: ["Data saved correctly."]});
 			    		});
 			    	}
 
 				});
 			});
-				
+
+
 		});
+
 
 	}
 

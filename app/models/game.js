@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
+    ApplicationError = require("../helpers/applicationErrors");
     util = require("util");
 
 var GameSchema = new Schema({
@@ -70,11 +71,11 @@ GameSchema.statics = {
 	findByMatchId: function(userId, matchId, callback) {
 
 		if (!userId){
-		  return callback(new AppError('userId is required'));
+		  return callback(new Error('userId is required'));
 		}
 
 		if (!matchId){
-		  return callback(new AppError('matchId is required'));
+		  return callback(new Error('matchId is required'));
 		}
 
 		//return this.findOne({user: userId, matchId: matchId}, callback);

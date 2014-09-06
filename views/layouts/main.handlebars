@@ -2,24 +2,31 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>My Website</title>
+	<meta name="description" content="Predict the scores of the Fifa World Cup">
+	
+	<!-- Moblie Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Stylesheets -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	 <link href="/css/custom.css" rel="stylesheet">
+	<link href="/css/custom.css" rel="stylesheet">
+
+	 
 {{!-- 	 <link href="https://www.formstack.com/forms/css/3/default.css" rel="stylesheet">
 	 <link href="http://www.telegraph.co.uk/template/ver1-0/css/screen.css" rel="stylesheet">
- --}}	 <link href='http://fonts.googleapis.com/css?family=Abel|Rubik+One ' rel='stylesheet' type='text/css'>
-	<!--
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	-->
+ --}}	 
+ 	<link href='http://fonts.googleapis.com/css?family=Abel|Rubik+One' rel='stylesheet' type='text/css'>
+
+	<!-- JavaScript -->
 	<script src="/js/jquery-11.0.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/lapolla.js"></script>
-	<!-- wtf -->
+
+
+
 
 </head>
 	<body>
-	
+
 
 		{{#if loggedIn}}
 			<nav class="navbar navbar-default " role="banner">
@@ -83,5 +90,13 @@
 		<div style='position: absolute; bottom: 0; height:40px'>
 			{{!-- <h3>this is the footer</h3> --}}
 		</div>
+
+
+		<script src="/js/bootstrap.min.js"></script>
+		<!--
+		<script src="/js/lapolla.js"></script>
+-->
+
+
 	</body>
 </html>

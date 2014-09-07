@@ -482,9 +482,17 @@ function processUserPoints(next, matchHM, user, cb){
 				//Save how many points the user got for this game
 				// 0 nothing, 1 guessed the winner, 3 guessed the score.
 				auxGame.points = gamePoints;
-				auxGame.save();
 
 				points = points + gamePoints; //keep adding overall points.
+
+				auxGame.save();		
+
+			} else {
+
+				if (auxGame.points !== 0 ){
+					auxGame.points = 0;
+					auxGame.save();		
+				}
 
 			}
 

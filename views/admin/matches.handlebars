@@ -299,7 +299,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
             <% } %>
         </div>
         
-        <input class="played" type="checkbox" value="<%= played %>" <%= played ? 'checked' : '' %>>
+        <div class="played">
+            <input  type="checkbox" value="<%= played %>" <%= played ? 'checked' : '' %>>
+            Played?
+        </div>
 
 </script>
 
@@ -355,6 +358,10 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
                 <% } %>
 
             <% } %>
+        </div>
+        <div class="played">
+            <input  type="checkbox" value="<%= played %>" <%= played ? 'checked' : '' %>>
+            Played?
         </div>
     </div>
 

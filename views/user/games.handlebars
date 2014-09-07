@@ -36,13 +36,7 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
     background-color: lightsalmon;
 }
 
-.one-point{
-    background-color: lightgreen;
-}
 
-.three-points{
-    background-color: lightblue;
-}
 
 .one{
     display: inline-block;
@@ -50,6 +44,14 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
     background: #e2e7dc;
     vertical-align: top;
     text-align: right;
+}
+
+.three{
+    display: inline-block;
+    width: 43.5%;
+    background: #e2e7dc;
+    vertical-align: top;
+    text-align: left;
 }
 
 
@@ -67,13 +69,7 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
 
 }
 
-.three{
-    display: inline-block;
-    width: 43.5%;
-    background: #e2e7dc;
-    vertical-align: top;
-    text-align: left;
-}
+
 
 /*
     remove top border from table.
@@ -250,18 +246,9 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
 
 <script id="allGamesTemplate" type="text/template">
 
-        <% if (team1) { %>
-            <input type="hidden" name="team_<%= matchId %>_code_1" value="<%= team1.code %>">
-        <% } %>
-        <% if (team2) { %>
-            <input type="hidden" name="team_<%= matchId %>_code_2" value="<%= team2.code %>">
-        <% } %>
-        
-        <input type="hidden" name="matchId_<%= matchId %>" value="<%= matchId %>">  
-
         <div class="panel-name name-right">
             <% if (team1) { %>
-                <label class="team1-name"><%= team1.name %></label>
+                <label class="team1-name points-<%= points %>"><%= team1.name %></label>
             <% } %>
         </div>
 
@@ -295,7 +282,7 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
 
         <div class="panel-name name-left">
             <% if (team2) { %>
-                <label class="team2-name"><%= team2.name %></label>
+                <label class="team2-name points-<%= points %>"><%= team2.name %></label>
             <% } %>
         </div>
 
@@ -307,7 +294,7 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
     <div class="ko-game">
         <div>
             <% if (team1) { %>        
-                <label class="team"><%= team1.name %></label>
+                <label class="team points-<%= points %>"><%= team1.name %></label>
                 <img src="<%= team1.flag %>">
 
                 <% if (canEdit) { %>
@@ -332,7 +319,7 @@ hello {{name}},{{currentUser}},{{profileUser}},{{canEdit}}
         </div>
         <div>
             <% if (team2) { %>              
-                <label class="team"><%= team2.name %></label>
+                <label class="team points-<%= points %>"><%= team2.name %></label>
                 <img src="<%= team2.flag %>">
 
                 <% if (canEdit) { %>

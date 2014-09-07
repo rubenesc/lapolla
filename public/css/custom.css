@@ -368,6 +368,12 @@ label {
 
 }
 
+
+.ko-game .played{
+    margin: 8px 10px; 
+}
+
+
 /*--- ko game ---*/
 
 .ko-game label.team {
@@ -407,4 +413,13 @@ label {
     margin-top: 5px;    
 }
 
+
+
+.points-1{
+    background-color: lightgreen;
+}
+
+.points-3{
+    background-color: lightblue;
+}
 
